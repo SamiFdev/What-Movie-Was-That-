@@ -3,7 +3,7 @@
 // 
 
 // Constants
-const movieTitle = 'shrek'
+const movieTitle = 'shrek' //Change to user input value
 const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
 
 
