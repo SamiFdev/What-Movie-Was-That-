@@ -30,12 +30,13 @@ function searchMovie(){
         }).then(function(data) {
             console.log('OMDB',data.Response)
 
-            
-            // Pulls up a video for each type
+            // Checks if a movie was found
             if (data.Response === 'True'){
-
+                
                 // Extracting the year from first omdb result.  Change later to Whichever result the user clicks on
                 const year = data.Search[0].Year
+
+                // Pulls up a video for each type
                 searchVideos(year,'Trailer')
                 searchVideos(year,'Clips')
                 searchVideos(year,'Review')
