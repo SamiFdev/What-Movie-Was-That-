@@ -3,7 +3,7 @@
 // 
 
 // Constants
-const movieTitle = 'shrek' //Change to user input value
+const movieTitle = 'shrsadasdek' //Change to user input value
 const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
 
 
@@ -28,15 +28,23 @@ function searchMovie(){
         .then(function(response) {
             return response.json()
         }).then(function(data) {
-            console.log('OMDB',data)
+            console.log('OMDB',data.Response)
 
-            // Extracting the year from first omdb result.  Change later to Whichever result the user clicks on
-            const year = data.Search[0].Year
-
+            
             // Pulls up a video for each type
-            searchVideos(year,'Trailer')
-            searchVideos(year,'Clips')
-            searchVideos(year,'Review')
+            if (data.Response === 'True'){
+
+                // Extracting the year from first omdb result.  Change later to Whichever result the user clicks on
+                const year = data.Search[0].Year
+                searchVideos(year,'Trailer')
+                searchVideos(year,'Clips')
+                searchVideos(year,'Review')
+            }
+            else {
+
+                // Change from an alert to display on page
+                alert('No such movie')
+            }
 
         })
         .catch(err => {
