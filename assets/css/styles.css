@@ -1,6 +1,8 @@
 .card{
-    height:500px;
+    height: 520px;
 }
-.card>img{
-    float: left;
+.poster-search{
+    max-height: 439px;
+    max-width: 300px;
+    margin: auto;
 }
