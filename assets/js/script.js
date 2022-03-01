@@ -7,7 +7,9 @@ const searchYearEl = document.querySelectorAll(".releaseYear");
 
 const searchResult = document.querySelector("#searchform")
 const movieInput = document.querySelector("#searchbar")
-
+const searchResultsContainer = document.querySelector('.searchresults')
+const mainContentContainer = document.querySelector('.maincontent')
+console.log(searchResult)
 
 // 
 // HTML Element selectors
@@ -100,6 +102,7 @@ function handleSubmit(event){
 event.preventDefault()
 movieTitle=movieInput.value
 searchMovie()
+searchResultsContainer.setAttribute('style','columns searchresults')
 }
 searchResult.addEventListener("submit", handleSubmit)
 
