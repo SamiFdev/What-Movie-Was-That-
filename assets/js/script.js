@@ -5,7 +5,8 @@ const titleSearchEl = document.querySelectorAll(".movie");
 
 const searchYearEl = document.querySelectorAll(".releaseYear");
 
-
+const searchResult = document.querySelector("#searchform")
+const movieInput = document.querySelector("#searchbar")
 
 
 // 
@@ -13,7 +14,7 @@ const searchYearEl = document.querySelectorAll(".releaseYear");
 // 
 
 // Constants
-const movieTitle = 'Role Models' //Change to user input value
+let movieTitle = "" //Change to user input value
 const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
 
 // Results variables
@@ -95,8 +96,12 @@ function searchMovie(){
             console.error(err);
         });
 }
-
-
+function handleSubmit(event){
+event.preventDefault()
+movieTitle=movieInput.value
 searchMovie()
+}
+searchResult.addEventListener("submit", handleSubmit)
+
 
 
