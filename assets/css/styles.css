@@ -1,0 +1,6 @@
+.card{
+    height:500px;
+}
+.card>img{
+    float: left;
+}
