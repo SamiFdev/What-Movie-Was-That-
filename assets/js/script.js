@@ -3,8 +3,16 @@
 // 
 
 // Constants
-const movieTitle = 'shrsadasdek' //Change to user input value
+const movieTitle = 'shrek' //Change to user input value
 const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
+
+// Results variables
+let title;
+let movieYear;
+let moviePoster;
+let moviePlot;
+let movieGenre;
+let movieRated;
 
 
 // YouTube Search API
@@ -21,6 +29,21 @@ function searchVideos(year,videoType){
         });
 }
 
+function getMovieDetails(movieId){
+    fetch(`http://www.omdbapi.com/?apikey=6c411e7c&i=${movieId}`)
+        .then(function(response) {
+            return response.json()
+        }).then(function(data) {
+            title = data.Title
+            movieYear = data.Year
+            moviePoster = data.Poster
+            moviePlot = data.Plot
+            movieGenre = data.Genre
+            movieRated = data.Rated
+            console.log(movieGenre,movieTitle,moviePoster,movieRated,movieYear,moviePlot)
+        })
+}
+
 
 // OMDB api
 function searchMovie(){
@@ -28,18 +51,22 @@ function searchMovie(){
         .then(function(response) {
             return response.json()
         }).then(function(data) {
-            console.log('OMDB',data.Response)
+            console.log('OMDB',data)
 
             // Checks if a movie was found
             if (data.Response === 'True'){
                 
+                // Random Id
+                const movieId = data.Search[0].imdbID
                 // Extracting the year from first omdb result.  Change later to Whichever result the user clicks on
                 const year = data.Search[0].Year
 
+                getMovieDetails(movieId)
+
                 // Pulls up a video for each type
-                searchVideos(year,'Trailer')
-                searchVideos(year,'Clips')
-                searchVideos(year,'Review')
+                // searchVideos(year,'Trailer')
+                // searchVideos(year,'Clips')
+                // searchVideos(year,'Review')
             }
             else {
 
