@@ -1,20 +1,15 @@
+// HTML Element selectors
 const posterSearchEl = document.querySelectorAll(".poster-search");
-posterSearchEl[0].setAttribute("src", "https://bulma.io/images/placeholders/480x480.png");
-
 const titleSearchEl = document.querySelectorAll(".movie");
-
 const searchYearEl = document.querySelectorAll(".releaseYear");
-
 const searchResult = document.querySelector("#searchform")
 const movieInput = document.querySelector("#searchbar")
+const searchResultsContainer = document.querySelector('.searchresults')
+const mainContentContainer = document.querySelector('.maincontent')
 
-
-// 
-// HTML Element selectors
-// 
 
 // Constants
-let movieTitle = "" //Change to user input value
+let movieTitle; //Change to user input value
 const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
 
 // Results variables
@@ -66,12 +61,11 @@ function searchMovie(){
             console.log('OMDB',data)
 
             // Checks if a movie was found
-            if (true){
+            if (data.Response === 'True'){
                 for(i=0; i<3; i++) {
                     titleSearchEl[i].textContent= data.Search[i].Title
                     posterSearchEl[i].setAttribute("src", data.Search[i].Poster)
                     searchYearEl[i].textContent= data.Search[i].Year
-                   
                 }
                 // Random Id
                 const movieId = data.Search[0].imdbID
@@ -96,11 +90,14 @@ function searchMovie(){
             console.error(err);
         });
 }
+
 function handleSubmit(event){
-event.preventDefault()
-movieTitle=movieInput.value
-searchMovie()
+    event.preventDefault()
+    movieTitle=movieInput.value
+    searchMovie()
+    searchResultsContainer.classList.toggle('is-hidden')
 }
+
 searchResult.addEventListener("submit", handleSubmit)
 
 
