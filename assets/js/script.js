@@ -133,6 +133,7 @@ function clearResults () {
 function handleSubmit(event) {
     event.preventDefault()
     movieTitle = movieInput.value
+    movieInput.value=''
     searchMovie()
     mainContentContainer.classList.add('is-hidden')
     searchResultsContainer.classList.remove('is-hidden')
