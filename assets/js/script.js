@@ -15,17 +15,11 @@ const mainYear = document.querySelector('.main-year')
 const mainTitle = document.querySelector('.titleofmovie')
 const movieCard = document.querySelectorAll('.movieCard')
 const videoEl = document.querySelector('.videos')
+const clearButton = document.querySelector('.clearButton')
+
 // Constants
 let movieTitle; //Change to user input value
 const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
-
-// Results variables
-let title;
-let movieYear;
-let moviePoster;
-let moviePlot;
-let movieGenre;
-let movieRated;
 
 
 // YouTube Search API
@@ -43,7 +37,7 @@ function searchVideos(selectedTitle,year, videoType) {
             return res.json()
         })
         .then(function (data) {
-            console.log('youtube', data,title)
+            // console.log('youtube', data,title)
             embeded.setAttribute('src',`https://www.youtube.com/embed/${data.items[0].id.videoId}`)
             // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
             embeded.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture')
@@ -66,7 +60,11 @@ function getMovieDetails(movieId) {
             mainTitle.textContent = data.Title
             mainTitle.classList.add('has-text-weight-bold')
             mainYear.textContent = data.Year
-            mainPoster.setAttribute('src',data.Poster)
+            if (data.Poster!=='N/A'){
+                mainPoster.setAttribute('src',data.Poster)
+            } else {
+                mainPoster.setAttribute('src','./assets/images/default-image.png')
+            }
             mPlot.textContent = data.Plot
             mGenre.textContent = data.Genre
             mRating.textContent = data.Rated
@@ -104,13 +102,15 @@ function searchMovie() {
                     console.log(data.Search[i].Poster)
                     if (data.Search[i].Poster != 'N/A') {
                         posterSearchEl[i].setAttribute("src", data.Search[i].Poster)
+                    } else {
+                        posterSearchEl[i].setAttribute("src", './assets/images/default-image.png')
                     }
                     searchYearEl[i].textContent = data.Search[i].Year
                 }
                 // Random Id
-                const movieId = data.Search[0].imdbID
+                // const movieId = data.Search[0].imdbID
                 // Extracting the year from first omdb result.  Change later to Whichever result the user clicks on
-                const year = data.Search[0].Year
+                // const year = data.Search[0].Year
 
                 // getMovieDetails(movieId)
 
@@ -129,13 +129,27 @@ function searchMovie() {
             console.error(err);
         });
 }
+function clearResults () {
+    mainContentContainer.classList.add('is-hidden')
+    searchResultsContainer.classList.add('is-hidden')
+}
 
 function handleSubmit(event) {
     event.preventDefault()
     movieTitle = movieInput.value
+    movieInput.value=''
     searchMovie()
     mainContentContainer.classList.add('is-hidden')
     searchResultsContainer.classList.remove('is-hidden')
 }
 
+// Allows enter to be used to submit the input
+function checkEnter(event){
+    if (event.key === 'Enter'){
+        handleSubmit(event)
+    }
+}
+
 searchResult.addEventListener("submit", handleSubmit)
+searchResult.addEventListener('keydown',checkEnter)
+clearButton.onclick = clearResults
