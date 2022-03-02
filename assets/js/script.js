@@ -60,7 +60,11 @@ function getMovieDetails(movieId) {
             mainTitle.textContent = data.Title
             mainTitle.classList.add('has-text-weight-bold')
             mainYear.textContent = data.Year
-            mainPoster.setAttribute('src',data.Poster)
+            if (data.Poster!=='N/A'){
+                mainPoster.setAttribute('src',data.Poster)
+            } else {
+                mainPoster.setAttribute('src','./assets/images/default-image.png')
+            }
             mPlot.textContent = data.Plot
             mGenre.textContent = data.Genre
             mRating.textContent = data.Rated
