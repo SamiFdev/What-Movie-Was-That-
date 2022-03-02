@@ -143,5 +143,13 @@ function handleSubmit(event) {
     searchResultsContainer.classList.remove('is-hidden')
 }
 
+// Allows enter to be used to submit the input
+function checkEnter(event){
+    if (event.key === 'Enter'){
+        handleSubmit(event)
+    }
+}
+
 searchResult.addEventListener("submit", handleSubmit)
+searchResult.addEventListener('keydown',checkEnter)
 clearButton.onclick = clearResults
