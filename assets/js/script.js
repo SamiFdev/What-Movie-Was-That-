@@ -6,7 +6,10 @@ const searchResult = document.querySelector("#searchform")
 const movieInput = document.querySelector("#searchbar")
 const searchResultsContainer = document.querySelector('.searchresults')
 const mainContentContainer = document.querySelector('.maincontent')
-
+const mRating = document.querySelectorAll("#movieRating")
+const mGenre = document.querySelectorAll("#genre")
+const mPlot = document.querySelectorAll("#plot")
+const mScore = document.querySelectorAll("#ratingScore")
 
 // Constants
 let movieTitle; //Change to user input value
@@ -22,53 +25,55 @@ let movieRated;
 
 
 // YouTube Search API
-function searchVideos(year,videoType){
+function searchVideos(year, videoType) {
     fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${movieTitle} ${year} ${videoType}&key=${youtubeAPI}&type=video`)
-        .then(function(res) {
+        .then(function (res) {
             return res.json()
         })
-        .then(function(data){
-        console.log('youtube',data)
+        .then(function (data) {
+            console.log('youtube', data)
         })
         .catch(err => {
             console.error(err);
         });
 }
 
-function getMovieDetails(movieId){
+function getMovieDetails(movieId) {
     fetch(`http://www.omdbapi.com/?apikey=6c411e7c&i=${movieId}`)
-        .then(function(response) {
+        .then(function (response) {
             return response.json()
-        }).then(function(data) {
+        }).then(function (data) {
             title = data.Title
             movieYear = data.Year
             moviePoster = data.Poster
-            moviePlot = data.Plot
-            movieGenre = data.Genre
-            movieRated = data.Rated
-            console.log(movieGenre,movieTitle,moviePoster,movieRated,movieYear,moviePlot)
+            mPlot.textContent = data.Plot
+            mGenre.textContent = data.Genre
+            mRating.textContent = data.Rated
+            mScore.textContent = data.Ratings
+            // console.log(movieGenre, movieTitle, moviePoster, movieRated, movieYear, moviePlot)
+            console.log(mGenre, mPlot, mScore)
         })
 }
 
 
 // OMDB api
-function searchMovie(){
+function searchMovie() {
     console.log("searchMovie");
     fetch(`http://www.omdbapi.com/?apikey=6c411e7c&s=${movieTitle}`)
-        .then(function(response) {
+        .then(function (response) {
             return response.json()
-        }).then(function(data) {
-            console.log('OMDB',data)
+        }).then(function (data) {
+            console.log('OMDB', data)
 
             // Checks if a movie was found
-            if (data.Response === 'True'){
-                for(i=0; i<3; i++) {
-                    titleSearchEl[i].textContent= data.Search[i].Title
+            if (data.Response === 'True') {
+                for (i = 0; i < 3; i++) {
+                    titleSearchEl[i].textContent = data.Search[i].Title
                     console.log(data.Search[i].Poster)
-                    if (data.Search[i].Poster!='N/A'){
+                    if (data.Search[i].Poster != 'N/A') {
                         posterSearchEl[i].setAttribute("src", data.Search[i].Poster)
                     }
-                    searchYearEl[i].textContent= data.Search[i].Year
+                    searchYearEl[i].textContent = data.Search[i].Year
                 }
                 // Random Id
                 const movieId = data.Search[0].imdbID
@@ -81,8 +86,7 @@ function searchMovie(){
                 // searchVideos(year,'Trailer')
                 // searchVideos(year,'Clips')
                 // searchVideos(year,'Review')
-            }
-            else {
+            } else {
 
                 // Change from an alert to display on page
                 alert('No such movie')
@@ -94,14 +98,11 @@ function searchMovie(){
         });
 }
 
-function handleSubmit(event){
+function handleSubmit(event) {
     event.preventDefault()
-    movieTitle=movieInput.value
+    movieTitle = movieInput.value
     searchMovie()
     searchResultsContainer.classList.remove('is-hidden')
 }
 
 searchResult.addEventListener("submit", handleSubmit)
-
-
-
