@@ -15,6 +15,7 @@ const mainYear = document.querySelector('.main-year')
 const mainTitle = document.querySelector('.titleofmovie')
 const movieCard = document.querySelectorAll('.movieCard')
 const videoEl = document.querySelector('.videos')
+const clearButton = document.querySelector('.clearButton')
 
 // Constants
 let movieTitle; //Change to user input value
@@ -124,6 +125,10 @@ function searchMovie() {
             console.error(err);
         });
 }
+function clearResults () {
+    mainContentContainer.classList.add('is-hidden')
+    searchResultsContainer.classList.add('is-hidden')
+}
 
 function handleSubmit(event) {
     event.preventDefault()
@@ -134,3 +139,4 @@ function handleSubmit(event) {
 }
 
 searchResult.addEventListener("submit", handleSubmit)
+clearButton.onclick = clearResults
