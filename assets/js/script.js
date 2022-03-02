@@ -28,13 +28,16 @@ let movieRated;
 
 
 // YouTube Search API
-function searchVideos(year, videoType) {
-    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${movieTitle} ${year} ${videoType}&key=${youtubeAPI}&type=video`)
+function searchVideos(selectedTitle,year, videoType) {
+    searchResultsContainer.classList.add('is-hidden')
+    mainContentContainer.classList.remove('is-hidden')
+    console.log(selectedTitle)
+    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${selectedTitle} ${year} ${videoType}&key=${youtubeAPI}&type=video`)
         .then(function (res) {
             return res.json()
         })
         .then(function (data) {
-            console.log('youtube', data)
+            console.log('youtube', data,title)
         })
         .catch(err => {
             console.error(err);
@@ -55,6 +58,11 @@ function getMovieDetails(movieId) {
             mScore.textContent = data.imdbRating
             // console.log(movieGenre, movieTitle, moviePoster, movieRated, movieYear, moviePlot)
             console.log(data)
+            searchVideos(data.Title,data.Year,'Trailer')
+            // Pulls up a video for each type
+                // searchVideos(year,'Trailer')
+                // searchVideos(year,'Clips')
+                // searchVideos(year,'Review')
         })
 }
 
@@ -71,9 +79,10 @@ function searchMovie() {
             // Checks if a movie was found
             if (data.Response === 'True') {
                 for (i = 0; i < 3; i++) {
-                     movieCard[i].onclick=function(){
-                        getMovieDetails(data.Search[i].imdbID)
-                        console.log(data.Search[i])
+                    movieCard[i].setAttribute('data-id',data.Search[i].imdbID)
+                     movieCard[i].onclick=function(event){
+
+                        getMovieDetails(this.getAttribute('data-id'))
                       
                     }
                     titleSearchEl[i].textContent = data.Search[i].Title
@@ -110,10 +119,8 @@ function handleSubmit(event) {
     event.preventDefault()
     movieTitle = movieInput.value
     searchMovie()
+    mainContentContainer.classList.add('is-hidden')
     searchResultsContainer.classList.remove('is-hidden')
 }
 
 searchResult.addEventListener("submit", handleSubmit)
-// searchResultsContainer.onclick=function (event){
-// console.log(event)
-// }
