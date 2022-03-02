@@ -95,7 +95,7 @@ function handleSubmit(event){
     event.preventDefault()
     movieTitle=movieInput.value
     searchMovie()
-    searchResultsContainer.classList.toggle('is-hidden')
+    searchResultsContainer.classList.remove('is-hidden')
 }
 
 searchResult.addEventListener("submit", handleSubmit)
