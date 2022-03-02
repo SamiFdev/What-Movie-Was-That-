@@ -91,7 +91,7 @@ function searchMovie() {
                 // getMovieDetails(movieId)
 
                 // Pulls up a video for each type
-                // searchVideos(year,'Trailer')
+                
                 // searchVideos(year,'Clips')
                 // searchVideos(year,'Review')
             } else {
