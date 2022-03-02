@@ -13,7 +13,7 @@ const mScore = document.querySelector("#ratingScore")
 const mainPoster = document.querySelector('.main-poster')
 const mainYear = document.querySelector('.main-year')
 const mainTitle = document.querySelector('.titleofmovie')
-
+const movieCard = document.querySelectorAll('.movieCard')
 // Constants
 let movieTitle; //Change to user input value
 const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
@@ -71,6 +71,11 @@ function searchMovie() {
             // Checks if a movie was found
             if (data.Response === 'True') {
                 for (i = 0; i < 3; i++) {
+                     movieCard[i].onclick=function(){
+                        getMovieDetails(data.Search[i].imdbID)
+                        console.log(data.Search[i])
+                      
+                    }
                     titleSearchEl[i].textContent = data.Search[i].Title
                     console.log(data.Search[i].Poster)
                     if (data.Search[i].Poster != 'N/A') {
@@ -83,7 +88,7 @@ function searchMovie() {
                 // Extracting the year from first omdb result.  Change later to Whichever result the user clicks on
                 const year = data.Search[0].Year
 
-                getMovieDetails(movieId)
+                // getMovieDetails(movieId)
 
                 // Pulls up a video for each type
                 // searchVideos(year,'Trailer')
@@ -109,3 +114,6 @@ function handleSubmit(event) {
 }
 
 searchResult.addEventListener("submit", handleSubmit)
+// searchResultsContainer.onclick=function (event){
+// console.log(event)
+// }
