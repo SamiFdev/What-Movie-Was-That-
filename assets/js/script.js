@@ -99,7 +99,10 @@ function searchMovie() {
 
                 // getMovieDetails(movieId)
 
+                // Pulls up a video for each type
                 
+                // searchVideos(year,'Clips')
+                // searchVideos(year,'Review')
             } else {
 
                 // Change from an alert to display on page
