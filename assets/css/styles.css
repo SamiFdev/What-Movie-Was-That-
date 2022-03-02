@@ -1,10 +1,33 @@
-.card{
-    height: 520px;
+.searchresults .card{
+    min-height: 700px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+}
+
+.searchresults .card:hover {
+    transform: scale(1.05);
+}
+
+.maincontent .card {
+    min-height: 500px;
 }
 .poster-search{
-    max-height: 439px;
+    height: 100%;
     max-width: 300px;
     margin: auto;
+}
+
+.info-container p {
+    font-weight: bold;
+}
+.info-container span {
+    font-weight: normal;
+}
+
+.image img {
+    height: 500px;
+    object-fit: cover;
 }
 
 .mainImage {
@@ -13,7 +36,7 @@
 
 .mainImage img {
     height: 400px;
-    max-width: 200px;
+    max-width: 300px;
     object-fit: cover;
 }
 
