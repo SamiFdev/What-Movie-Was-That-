@@ -48,3 +48,13 @@
    width: 60%;
    padding: 2rem;
 }
+
+.videos {
+height: 100%;
+}
+
+iframe{
+
+    width: 100%;
+    height: calc(85%);
+}

@@ -32,6 +32,9 @@ let movieRated;
 function searchVideos(selectedTitle,year, videoType) {
     videoEl.replaceChildren()
     const embeded = document.createElement('iframe')
+    const trailerTitle = document.createElement('h1')
+    trailerTitle.classList.add("is-size-5");
+    trailerTitle.classList.add("has-text-weight-bold")
     searchResultsContainer.classList.add('is-hidden')
     mainContentContainer.classList.remove('is-hidden')
     console.log(selectedTitle)
@@ -45,7 +48,10 @@ function searchVideos(selectedTitle,year, videoType) {
             // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
             embeded.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture')
             embeded.setAttribute('allowfullscreen',true)
-            videoEl.append(embeded)
+            trailerTitle.textContent = (data.items[0].snippet.title)
+             videoEl.append(embeded)
+            videoEl.append(trailerTitle)
+           
         })
         .catch(err => {
             console.error(err);
@@ -58,6 +64,7 @@ function getMovieDetails(movieId) {
             return response.json()
         }).then(function (data) {
             mainTitle.textContent = data.Title
+            mainTitle.classList.add('has-text-weight-bold')
             mainYear.textContent = data.Year
             mainPoster.setAttribute('src',data.Poster)
             mPlot.textContent = data.Plot
