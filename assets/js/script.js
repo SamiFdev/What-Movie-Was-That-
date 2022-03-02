@@ -6,10 +6,13 @@ const searchResult = document.querySelector("#searchform")
 const movieInput = document.querySelector("#searchbar")
 const searchResultsContainer = document.querySelector('.searchresults')
 const mainContentContainer = document.querySelector('.maincontent')
-const mRating = document.querySelectorAll("#movieRating")
-const mGenre = document.querySelectorAll("#genre")
-const mPlot = document.querySelectorAll("#plot")
-const mScore = document.querySelectorAll("#ratingScore")
+const mRating = document.querySelector("#movieRating")
+const mGenre = document.querySelector("#genre")
+const mPlot = document.querySelector("#plot")
+const mScore = document.querySelector("#ratingScore")
+const mainPoster = document.querySelector('.main-poster')
+const mainYear = document.querySelector('.main-year')
+const mainTitle = document.querySelector('.titleofmovie')
 
 // Constants
 let movieTitle; //Change to user input value
@@ -43,15 +46,15 @@ function getMovieDetails(movieId) {
         .then(function (response) {
             return response.json()
         }).then(function (data) {
-            title = data.Title
-            movieYear = data.Year
-            moviePoster = data.Poster
+            mainTitle.textContent = data.Title
+            mainYear.textContent = data.Year
+            mainPoster.setAttribute('src',data.Poster)
             mPlot.textContent = data.Plot
             mGenre.textContent = data.Genre
             mRating.textContent = data.Rated
-            mScore.textContent = data.Ratings
+            mScore.textContent = data.imdbRating
             // console.log(movieGenre, movieTitle, moviePoster, movieRated, movieYear, moviePlot)
-            console.log(mGenre, mPlot, mScore)
+            console.log(data)
         })
 }
 
