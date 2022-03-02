@@ -64,7 +64,10 @@ function searchMovie(){
             if (data.Response === 'True'){
                 for(i=0; i<3; i++) {
                     titleSearchEl[i].textContent= data.Search[i].Title
-                    posterSearchEl[i].setAttribute("src", data.Search[i].Poster)
+                    console.log(data.Search[i].Poster)
+                    if (data.Search[i].Poster!='N/A'){
+                        posterSearchEl[i].setAttribute("src", data.Search[i].Poster)
+                    }
                     searchYearEl[i].textContent= data.Search[i].Year
                 }
                 // Random Id
