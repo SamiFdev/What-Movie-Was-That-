@@ -15,17 +15,10 @@ const mainYear = document.querySelector('.main-year')
 const mainTitle = document.querySelector('.titleofmovie')
 const movieCard = document.querySelectorAll('.movieCard')
 const videoEl = document.querySelector('.videos')
+
 // Constants
 let movieTitle; //Change to user input value
 const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
-
-// Results variables
-let title;
-let movieYear;
-let moviePoster;
-let moviePlot;
-let movieGenre;
-let movieRated;
 
 
 // YouTube Search API
@@ -43,7 +36,7 @@ function searchVideos(selectedTitle,year, videoType) {
             return res.json()
         })
         .then(function (data) {
-            console.log('youtube', data,title)
+            // console.log('youtube', data,title)
             embeded.setAttribute('src',`https://www.youtube.com/embed/${data.items[0].id.videoId}`)
             // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
             embeded.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture')
@@ -104,13 +97,15 @@ function searchMovie() {
                     console.log(data.Search[i].Poster)
                     if (data.Search[i].Poster != 'N/A') {
                         posterSearchEl[i].setAttribute("src", data.Search[i].Poster)
+                    } else {
+                        posterSearchEl[i].setAttribute("src", './assets/images/default-image.png')
                     }
                     searchYearEl[i].textContent = data.Search[i].Year
                 }
                 // Random Id
-                const movieId = data.Search[0].imdbID
+                // const movieId = data.Search[0].imdbID
                 // Extracting the year from first omdb result.  Change later to Whichever result the user clicks on
-                const year = data.Search[0].Year
+                // const year = data.Search[0].Year
 
                 // getMovieDetails(movieId)
 
