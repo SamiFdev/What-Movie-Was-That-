@@ -6,3 +6,22 @@
     max-width: 300px;
     margin: auto;
 }
+
+.mainImage {
+    /* float: left; */
+}
+
+.mainImage img {
+    height: 400px;
+    max-width: 200px;
+    object-fit: cover;
+}
+
+.button-container {
+
+}
+
+.info-container {
+   width: 60%;
+   padding: 2rem;
+}
