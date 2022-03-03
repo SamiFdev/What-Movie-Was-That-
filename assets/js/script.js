@@ -142,8 +142,18 @@ function goBack() {
 }
 
 function getMovieDetails(movieId) {
-    
+    alreadyFavorited = false
     backButton.classList.remove('is-hidden')
+    favorites.forEach(movie=>{
+        if (movie.id === movieId){
+            alreadyFavorited = true
+        }
+    })
+    if (alreadyFavorited){
+        favoriteEl.setAttribute("style", "color:yellow;");
+    }else{
+        favoriteEl.setAttribute("style", "color:black;");
+    }
     fetch(`http://www.omdbapi.com/?apikey=6c411e7c&i=${movieId}`)
         .then(function (response) {
             return response.json()
