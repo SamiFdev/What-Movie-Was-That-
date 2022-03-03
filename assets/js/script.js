@@ -19,12 +19,73 @@ const clearButton = document.querySelector('.clearButton')
 const backButton = document.querySelector('.backButton')
 const favoriteEl = document.querySelector('.favorite')
 const favoritesEl = document.querySelector('.favorites')
-
+const favoriteBox = document.querySelector('.favbox')
+console.log(favoriteBox)
 // Constants
 let movieTitle; //Change to user input value
 let movieID;
 let favorites = []
 const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Functions to open and close a modal
+    function openModal($el) {
+        $el.classList.add('is-active');
+    }
+
+    function closeModal($el) {
+        $el.classList.remove('is-active');
+    }
+
+    function closeAllModals() {
+        (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+            closeModal($modal);
+        });
+    }
+
+    // Add a click event on buttons to open a specific modal
+    (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+        const modal = $trigger.dataset.target;
+        const $target = document.getElementById(modal);
+        console.log($target);
+
+        $trigger.addEventListener('click', () => {
+            openModal($target);
+        });
+    });
+
+    // Add a click event on various child elements to close the parent modal
+    (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+        const $target = $close.closest('.modal');
+
+        $close.addEventListener('click', () => {
+            closeModal($target);
+        });
+    });
+
+    // Add a keyboard event to close all modals
+    document.addEventListener('keydown', (event) => {
+        const e = event || window.event;
+
+        if (e.keyCode === 27) { // Escape key
+            closeAllModals();
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // YouTube Search API
@@ -181,10 +242,20 @@ function handleSubmit(event) {
 }
 
 function loadFavorites() {
-   const favoritetwo =  JSON.parse(localStorage.getItem('favorites'))
-   if (favoritetwo){
-   favorites = JSON.parse(localStorage.getItem('favorites'))} 
-    console.log(favorites)
+    const favoritetwo = JSON.parse(localStorage.getItem('favorites'))
+    if (favoritetwo) {
+        favorites = JSON.parse(localStorage.getItem('favorites'))
+    for(i=0; i<favorites.length; i++){
+        let favbox = document.createElement("p")
+        favbox.textContent=favorites[i].name
+        favbox.onclick = function(){
+            getMovieDetails(favorites[i].name)
+        }
+        favoriteBox.append(favbox)
+    }
+    }
+    // console.log(favorites)
+    
 }
 
 function saveFavorite() {
@@ -212,6 +283,7 @@ function saveFavorite() {
         favoriteEl.setAttribute("style", "color:yellow;");
     }
     localStorage.setItem('favorites', JSON.stringify(favorites))
+
 }
 
 loadFavorites()
