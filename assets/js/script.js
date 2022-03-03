@@ -115,6 +115,7 @@ function searchMovie() {
 
             // Checks if a movie was found
             if (data.Response === 'True') {
+                searchResultsContainer.classList.remove('is-hidden')
                 for (i = 0; i < 3; i++) {
                     movieCard[i].setAttribute('data-id',data.Search[i].imdbID)
                      movieCard[i].onclick=function(event){
@@ -164,7 +165,7 @@ function handleSubmit(event) {
     movieInput.value=''
     searchMovie()
     mainContentContainer.classList.add('is-hidden')
-    searchResultsContainer.classList.remove('is-hidden')
+    
     backButton.classList.add('is-hidden')
 }
 
