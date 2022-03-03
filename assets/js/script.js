@@ -16,6 +16,7 @@ const mainTitle = document.querySelector('.titleofmovie')
 const movieCard = document.querySelectorAll('.movieCard')
 const videoEl = document.querySelector('.videos')
 const clearButton = document.querySelector('.clearButton')
+const backButton = document.querySelector('.backButton')
 
 // Constants
 let movieTitle; //Change to user input value
@@ -67,8 +68,15 @@ function searchVideos(selectedTitle,year, videoType) {
     //         console.error(err);
     //     });
 }
+function goBack() {
+    mainContentContainer.classList.add('is-hidden')
+    searchResultsContainer.classList.remove('is-hidden')
+    backButton.classList.add('is-hidden')
+
+}
 
 function getMovieDetails(movieId) {
+    backButton.classList.remove('is-hidden')
     fetch(`http://www.omdbapi.com/?apikey=6c411e7c&i=${movieId}`)
         .then(function (response) {
             return response.json()
@@ -169,3 +177,4 @@ function checkEnter(event){
 searchResult.addEventListener("submit", handleSubmit)
 searchResult.addEventListener('keydown',checkEnter)
 clearButton.onclick = clearResults
+backButton.onclick = goBack
