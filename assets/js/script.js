@@ -242,14 +242,19 @@ function handleSubmit(event) {
 }
 
 function loadFavorites() {
+    for(i=0; i<favoriteBox.children.length; i++){
+    favoriteBox.removeChild(favoriteBox.firstChild);
+   
+}
     const favoritetwo = JSON.parse(localStorage.getItem('favorites'))
     if (favoritetwo) {
         favorites = JSON.parse(localStorage.getItem('favorites'))
     for(i=0; i<favorites.length; i++){
-        let favbox = document.createElement("p")
+        let favbox = document.createElement("li")
         favbox.textContent=favorites[i].name
+        favbox.setAttribute("data-name", favorites[i].name)
         favbox.onclick = function(){
-            getMovieDetails(favorites[i].name)
+            getMovieDetails(this.getAttribute("data-name"))
         }
         favoriteBox.append(favbox)
     }
@@ -275,6 +280,8 @@ function saveFavorite() {
         favorites.splice(favorites.indexOf(currentfavorite), 1)
         console.log(currentfavorite)
         favoriteEl.setAttribute("style", "color:black;");
+
+ loadFavorites()
     } else {
         favorites.push({
             name: movieTitle,
