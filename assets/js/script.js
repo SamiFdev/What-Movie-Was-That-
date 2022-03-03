@@ -19,61 +19,16 @@ const clearButton = document.querySelector('.clearButton')
 const backButton = document.querySelector('.backButton')
 const favoriteEl = document.querySelector('.favorite')
 const favoritesEl = document.querySelector('.favorites')
-const favoriteBox = document.querySelector('.favbox')
+const favoriteBox = document.querySelector('.favoritesContainer')
 const modalEl = document.querySelector('.modal')
 
-console.log(favoriteBox)
 // Constants
-let movieTitle; //Change to user input value
+let movieTitle; 
 let movieID;
 let favorites = []
 const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Functions to open and close a modal
-    function openModal($el) {
-        $el.classList.add('is-active');
-    }
 
-    function closeModal($el) {
-        $el.classList.remove('is-active');
-    }
-
-    function closeAllModals() {
-        (document.querySelectorAll('.modal') || []).forEach(($modal) => {
-            closeModal($modal);
-        });
-    }
-
-    // Add a click event on buttons to open a specific modal
-    (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
-        const modal = $trigger.dataset.target;
-        const $target = document.getElementById(modal);
-        console.log($target);
-
-        $trigger.addEventListener('click', () => {
-            openModal($target);
-        });
-    });
-
-    // Add a click event on various child elements to close the parent modal
-    (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-        const $target = $close.closest('.modal');
-
-        $close.addEventListener('click', () => {
-            closeModal($target);
-        });
-    });
-
-    // Add a keyboard event to close all modals
-    document.addEventListener('keydown', (event) => {
-        const e = event || window.event;
-
-        if (e.keyCode === 27) { // Escape key
-            closeAllModals();
-        }
-    });
-});
 
 
 
@@ -175,8 +130,6 @@ function getMovieDetails(movieId) {
             mGenre.textContent = data.Genre
             mRating.textContent = data.Rated
             mScore.textContent = data.imdbRating
-            // console.log(movieGenre, movieTitle, moviePoster, movieRated, movieYear, moviePlot)
-            console.log(data)
             searchVideos(data.Title, data.Year, 'Trailer')
             // Pulls up a video for each type
             // searchVideos(year,'Trailer')
@@ -188,7 +141,7 @@ function getMovieDetails(movieId) {
 
 // OMDB api
 function searchMovie(movieTitle) {
-    console.log("searchMovie");
+    
     fetch(`https://www.omdbapi.com/?apikey=6c411e7c&s=${movieTitle}`)
         .then(function (response) {
             return response.json()
@@ -214,17 +167,7 @@ function searchMovie(movieTitle) {
                     }
                     searchYearEl[i].textContent = data.Search[i].Year
                 }
-                // Random Id
-                // const movieId = data.Search[0].imdbID
-                // Extracting the year from first omdb result.  Change later to Whichever result the user clicks on
-                // const year = data.Search[0].Year
-
-                // getMovieDetails(movieId)
-
-                // Pulls up a video for each type
-
-                // searchVideos(year,'Clips')
-                // searchVideos(year,'Review')
+              
             } else {
 
                 // Change from an alert to display on page
@@ -251,42 +194,31 @@ function handleSubmit(event) {
     searchMovie(movieTitle)
     movieInput.value = ''
     mainContentContainer.classList.add('is-hidden')
-
     backButton.classList.add('is-hidden')
 }
 
 function loadFavorites() {
-    console.log(favoriteBox.children.length)
-    // for(i=0; i<favoriteBox.childElementCount; i++){
-    //     favoriteBox.removeChild(favoriteBox.firstElementChild);
-    //     console.log(favoriteBox.firstChild)
-    // }
     favoriteBox.innerHTML=''
-    const favoritetwo = JSON.parse(localStorage.getItem('favorites'))
-    if (favoritetwo) {
-        // favorites = JSON.parse(localStorage.getItem('favorites'))
-        // for(i=0; i<favorites.length; i++){
-        //     let favbox = document.createElement("p")
-        //     favbox.textContent=favorites[i].name
-        //     favbox.setAttribute("data-name", favorites[i].name)
-        //     favbox.onclick = function(){
-        //         getMovieDetails(this.getAttribute("data-name"))
-        //     }
-        //     favoriteBox.append(favbox)
-        favorites = favoritetwo
-        favoritetwo.forEach((movie)=>{
-            let favbox = document.createElement("p")
-            favbox.textContent=movie.name
-            favbox.setAttribute("data-name", movie.name)
-            favbox.setAttribute('data-id',movie.id)
-            favbox.onclick = function(){
+    const favoritesLoaded = JSON.parse(localStorage.getItem('favorites'))
+    if (!favoritesLoaded || !favoritesLoaded.length){
+        favoriteBox.innerHTML = '<p>No favorites</p>'
+    }
+    else if (favoritesLoaded) {
+       
+        favorites = favoritesLoaded
+        favorites.forEach((movie)=>{
+            let favoriteItem = document.createElement("p")
+            favoriteItem.textContent=movie.name
+            favoriteItem.setAttribute("data-name", movie.name)
+            favoriteItem.setAttribute('data-id',movie.id)
+            favoriteItem.onclick = function(){
                 getMovieDetails(this.getAttribute("data-id"))
                 modalEl.classList.remove('is-active')
             }
-            favoriteBox.append(favbox)
+            favoriteBox.append(favoriteItem)
         })
 
-        }
+        } 
     
     // console.log(favorites)
     
@@ -306,8 +238,6 @@ function saveFavorite() {
     }
 
     if (alreadySaved) {
-        // favorites.splice(favorites.indexOf(currentfavorite), 1)
-        // console.log(favorites)
         favoriteEl.setAttribute("style", "color:black;");
         favorites = favorites.filter(function(v) {
             return v.id !== currentfavorite.id;
@@ -324,9 +254,61 @@ function saveFavorite() {
     loadFavorites()
 }
 
-loadFavorites()
-searchResult.addEventListener("submit", handleSubmit)
-clearButton.onclick = clearResults
-backButton.onclick = goBack
-favoriteEl.onclick = saveFavorite
-favoritesEl.onclick = loadFavorites
+function init () {
+    loadFavorites()
+    searchResult.addEventListener("submit", handleSubmit)
+    clearButton.onclick = clearResults
+    backButton.onclick = goBack
+    favoriteEl.onclick = saveFavorite
+    favoritesEl.onclick = loadFavorites
+
+    // Modal
+    document.addEventListener('DOMContentLoaded', () => {
+        // Functions to open and close a modal
+        function openModal($el) {
+            $el.classList.add('is-active');
+        }
+
+        function closeModal($el) {
+            $el.classList.remove('is-active');
+        }
+
+        function closeAllModals() {
+            (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+                closeModal($modal);
+            });
+        }
+
+        // Add a click event on buttons to open a specific modal
+        (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+            const modal = $trigger.dataset.target;
+            const $target = document.getElementById(modal);
+            console.log($target);
+
+            $trigger.addEventListener('click', () => {
+                openModal($target);
+            });
+        });
+
+        // Add a click event on various child elements to close the parent modal
+        (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+            const $target = $close.closest('.modal');
+
+            $close.addEventListener('click', () => {
+                closeModal($target);
+            });
+        });
+
+        // Add a keyboard event to close all modals
+        document.addEventListener('keydown', (event) => {
+            const e = event || window.event;
+
+            if (e.keyCode === 27) { // Escape key
+                closeAllModals();
+            }
+        });
+    });
+
+}
+
+init()
