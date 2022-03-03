@@ -20,6 +20,8 @@ const backButton = document.querySelector('.backButton')
 const favoriteEl = document.querySelector('.favorite')
 const favoritesEl = document.querySelector('.favorites')
 const favoriteBox = document.querySelector('.favbox')
+const modalEl = document.querySelector('.modal')
+
 console.log(favoriteBox)
 // Constants
 let movieTitle; //Change to user input value
@@ -142,6 +144,7 @@ function goBack() {
 }
 
 function getMovieDetails(movieId) {
+    console.log(movieId)
     alreadyFavorited = false
     backButton.classList.remove('is-hidden')
     favorites.forEach(movie=>{
@@ -275,8 +278,10 @@ function loadFavorites() {
             let favbox = document.createElement("p")
             favbox.textContent=movie.name
             favbox.setAttribute("data-name", movie.name)
+            favbox.setAttribute('data-id',movie.id)
             favbox.onclick = function(){
-                getMovieDetails(this.getAttribute("data-name"))
+                getMovieDetails(this.getAttribute("data-id"))
+                modalEl.classList.remove('is-active')
             }
             favoriteBox.append(favbox)
         })
