@@ -6,13 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>What Movie Was That?</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Halant:wght@300&family=Shizuru&display=swap" rel="stylesheet"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
   <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 
 <body>
   <header>
     <section class="has-text-centered has-background-dark p-4">
-      <h1 class="title is-1 has-text-white">What Movie Was That?</h1>
+      <h1 class="title is-1 is-italic has-text-white">What Movie Was That?</h1>
     </section>
   </header>
 
@@ -98,16 +102,17 @@
             </figure>
             
             <div class="info-container">
-              
+              <div class="favoriteContainer">
+              <i class="fa-solid fa-star favorite"></i></div>
               <p>Movie Rating: <span id="movieRating"> </span></p>
               <p>Genres: <span id="genre"></span></p>
               <p>Plot: <span id="plot"></span></p>
               <p>IMDB rating: <span id="ratingScore">Rating Score</span></p>
-
+              
             </div>
           </div>
             <div class="button-container">
-              <h1 class="is-size-3 titleofmovie has-text-centered">Movie Title</h1>
+              <h1 class="is-size-4 titleofmovie has-text-centered">Movie Title</h1>
               <h2 class="subtitle is-6 main-year has-text-centered">Subtitle</h2>
               <!-- <button class="button is-rounded is-primary mx-1">Cast</button>
               <button class="button is-rounded is-primary mx-1">Plot</button>
@@ -120,7 +125,7 @@
 
         <!-- Card 2 -->
         <section class="column">
-          <div class="card p-3 videos">
+          <div class="card p-3 has-text-centered videos">
             
           </div>
         </section>
