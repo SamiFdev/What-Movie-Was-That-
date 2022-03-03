@@ -19,6 +19,7 @@
       <h1 class="title is-1 is-italic has-text-white">What Movie Was That?</h1>
     </section>
     <div>
+      <button class="button is-rounded is-dark mx-1 my-auto backButton is-hidden">Back to results</button>
     <button class="js-modal-trigger favorites button is-warning is-rounded" data-target="modal-js-example">
       Your Favorites!
     </button></div>
@@ -27,8 +28,8 @@
   <main>
 
     <!-- Input form -->
-    <section class="columns is-centered m-2">
-      <button class="button is-rounded is-danger mx-1 my-auto backButton is-hidden">Return to search results</button>
+    <section class="columns is-centered searchBar m-2">
+      
       <button class="button is-rounded is-danger mx-1 my-auto clearButton">Clear</button>
       <form class="column is-half is-flex" id="searchform">
         <input class="input is-rounded" type="text" placeholder="Search a Movie" id="searchbar">

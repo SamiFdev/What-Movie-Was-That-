@@ -100,7 +100,26 @@ iframe{
 }
 
 header>div {
-    display: flex;
-    justify-content: end;
-    padding: 5px 8px 0 0;
+    position: relative;
 }
+
+.modal p {
+    cursor: pointer;
+    width: fit-content;
+    text-decoration: underline;
+    margin: 10px auto;
+    font-size: larger;
+}
+
+.backButton {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+}
+
+.favorites {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+

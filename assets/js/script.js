@@ -126,7 +126,7 @@ function searchVideos(selectedTitle, year, videoType) {
             // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
             embeded.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture')
             embeded.setAttribute('allowfullscreen',true)
-            trailerTitle.textContent = (data.items[0].snippet.title)
+            trailerTitle.innerHTML = (data.items[0].snippet.title)
              videoEl.append(embeded)
             videoEl.append(trailerTitle)
 
