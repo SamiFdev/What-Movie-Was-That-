@@ -17,8 +17,8 @@ const movieCard = document.querySelectorAll('.movieCard')
 const videoEl = document.querySelector('.videos')
 const clearButton = document.querySelector('.clearButton')
 const backButton = document.querySelector('.backButton')
-const favorite = document.querySelector('.favorite')
-const favorites = document.querySelector('.favorites')
+const favoriteEl = document.querySelector('.favorite')
+const favoritesEl = document.querySelector('.favorites')
 
 // Constants
 let movieTitle; //Change to user input value
@@ -191,5 +191,5 @@ function saveFavorite (){
 searchResult.addEventListener("submit", handleSubmit)
 clearButton.onclick = clearResults
 backButton.onclick = goBack
-favorite.onclick = saveFavorite
-favorites.onclick =loadFavorites
+favoriteEl.onclick = saveFavorite
+favoritesEl.onclick =loadFavorites
