@@ -1,3 +1,8 @@
+html {
+    background-color: #c3c3c3;
+}
+
+
 header {
     font-family: 'Halant', serif;
 }
@@ -8,6 +13,7 @@ header {
     min-height: 700px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    background-color: #e6e6e6;
 
 }
 
@@ -17,6 +23,7 @@ header {
 
 .maincontent .card {
     min-height: 500px;
+    background-color: #e6e6e6;
 }
 .poster-search{
     height: 100%;
@@ -34,6 +41,8 @@ header {
 .image img {
     height: 500px;
     object-fit: cover;
+    border: 2px solid silver;
+    border-radius: 4px;
 }
 
 .mainImage {
@@ -77,6 +86,7 @@ div>img{
 
 .favorite {
     cursor: pointer;
+    
 }
 
 .favoriteContainer {
