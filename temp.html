@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Movie Was That?</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Halant:wght@300&family=Shizuru&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+
+<body>
+  <header>
+    <section class="has-text-centered has-background-dark p-4">
+      <h1 class="title is-1 is-italic has-text-white">What Movie Was That?</h1>
+    </section>
+    <div>
+      <button class="button is-rounded is-dark mx-1 my-auto backButton is-hidden">Back to results</button>
+    <button class="js-modal-trigger favorites button is-warning is-rounded" data-target="modal-js-example">
+      Your Favorites!
+    </button></div>
+  </header>
+
+  <main>
+
+    <!-- Input form -->
+    <section class="columns is-centered searchBar m-2">
+      
+      <button class="button is-rounded is-danger mx-1 my-auto clearButton">Clear</button>
+      <form class="column is-half is-flex" id="searchform">
+        <input class="input is-rounded" type="text" placeholder="Search a Movie" id="searchbar">
+        <button class="button is-rounded is-dark mx-3" type="submit" id="submit">Submit</button>
+      </form>
+    </section>
+
+    <!-- Card Container -->
+    <section class="container my-5">
+
+      <!-- Cards for search results, hidden by default -->
+      <section class="columns searchresults is-hidden">
+
+
+        <!-- Card 1 -->
+        <section class="column movieCard">
+          <div class="card p-3">
+
+            <figure class="image is-440x300">
+              <img class="poster-search" src="https://bulma.io/images/placeholders/480x480.png">
+            </figure>
+
+            <div class="content has-text-centered mb-0">
+              <h1 class="movie title is-3">Title</h1>
+              <h2 class="subtitle is-6 releaseYear">Subtitle</h2>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Card 2 -->
+        <section class="column movieCard">
+          <div class="card p-3">
+
+            <figure class="image is-440x300">
+              <img class="poster-search" src="https://bulma.io/images/placeholders/480x480.png">
+            </figure>
+
+            <div class="content has-text-centered">
+              <h1 class="movie title is-3">Title</h1>
+              <h2 class="subtitle is-6 releaseYear">Subtitle</h2>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Card 3 -->
+        <section class="column movieCard">
+          <div class="card p-3">
+
+            <figure class="image is-440x300">
+              <img class="poster-search" src="https://bulma.io/images/placeholders/480x480.png">
+            </figure>
+
+            <div class="content has-text-centered">
+              <h1 class="movie title is-3">Title</h1>
+              <h2 class="subtitle is-6 releaseYear">Subtitle</h2>
+            </div>
+
+        </section>
+      </section>
+
+      <!-- Cards for main page, hidden by default -->
+      <section class="columns maincontent is-hidden">
+
+        <!-- Card 1 -->
+        <section class="column">
+          <div class="card p-3">
+            <div class="is-flex is-justify-content-space-around">
+              <figure class="image  mainImage">
+                <img class="main-poster" src="https://bulma.io/images/placeholders/480x480.png">
+              </figure>
+
+              <div class="info-container">
+                <div class="favoriteContainer">
+                  <i class="fa-solid fa-star favorite"></i></div>
+                <p>Movie Rating: <span id="movieRating"> </span></p>
+                <p>Genres: <span id="genre"></span></p>
+                <p>Plot: <span id="plot"></span></p>
+                <p>IMDB rating: <span id="ratingScore">Rating Score</span></p>
+
+              </div>
+            </div>
+            <div class="button-container">
+              <h1 class="is-size-4 titleofmovie has-text-centered">Movie Title</h1>
+              <h2 class="subtitle is-6 main-year has-text-centered">Subtitle</h2>
+              <!-- <button class="button is-rounded is-primary mx-1">Cast</button>
+              <button class="button is-rounded is-primary mx-1">Plot</button>
+              <button class="button is-rounded is-primary mx-1">More Info</button> -->
+            </div>
+
+
+          </div>
+        </section>
+
+        <!-- Card 2 -->
+        <section class="column">
+          <div class="card p-3 has-text-centered videos">
+
+          </div>
+        </section>
+
+      </section>
+    </section>
+
+
+    </section>
+  </main>
+
+<div id="modal-js-example" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box favbox">
+  
+      <!-- Your content -->
+    </div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+  <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
