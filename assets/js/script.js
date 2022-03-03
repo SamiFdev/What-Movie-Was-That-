@@ -28,7 +28,7 @@ const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
 
 
 // YouTube Search API
-function searchVideos(selectedTitle,year, videoType) {
+function searchVideos(selectedTitle, year, videoType) {
     videoEl.replaceChildren()
     const embeded = document.createElement('iframe')
     const trailerTitle = document.createElement('h1')
@@ -41,15 +41,15 @@ function searchVideos(selectedTitle,year, videoType) {
     // 
     // CHANGE WHEN USING YOUTUBE!!!!
     // 
-    
+
 
     const temp = document.createElement('img')
-    temp.setAttribute('src','./assets/images/default-video.png')
+    temp.setAttribute('src', './assets/images/default-video.png')
     videoEl.append(temp)
     trailerTitle.textContent = 'TITLE OF VIDEO'
     videoEl.append(trailerTitle)
-    
-    
+
+
     // 
     // CHANGE WHEN USING YOUTUBE!!!!
     // 
@@ -66,12 +66,13 @@ function searchVideos(selectedTitle,year, videoType) {
     //         trailerTitle.textContent = (data.items[0].snippet.title)
     //          videoEl.append(embeded)
     //         videoEl.append(trailerTitle)
-           
+
     //     })
     //     .catch(err => {
     //         console.error(err);
     //     });
 }
+
 function goBack() {
     mainContentContainer.classList.add('is-hidden')
     searchResultsContainer.classList.remove('is-hidden')
@@ -90,10 +91,10 @@ function getMovieDetails(movieId) {
             mainTitle.textContent = movieTitle
             mainTitle.classList.add('has-text-weight-bold')
             mainYear.textContent = data.Year
-            if (data.Poster!=='N/A'){
-                mainPoster.setAttribute('src',data.Poster)
+            if (data.Poster !== 'N/A') {
+                mainPoster.setAttribute('src', data.Poster)
             } else {
-                mainPoster.setAttribute('src','./assets/images/default-image.png')
+                mainPoster.setAttribute('src', './assets/images/default-image.png')
             }
             mPlot.textContent = data.Plot
             mGenre.textContent = data.Genre
@@ -101,11 +102,11 @@ function getMovieDetails(movieId) {
             mScore.textContent = data.imdbRating
             // console.log(movieGenre, movieTitle, moviePoster, movieRated, movieYear, moviePlot)
             console.log(data)
-            searchVideos(data.Title,data.Year,'Trailer')
+            searchVideos(data.Title, data.Year, 'Trailer')
             // Pulls up a video for each type
-                // searchVideos(year,'Trailer')
-                // searchVideos(year,'Clips')
-                // searchVideos(year,'Review')
+            // searchVideos(year,'Trailer')
+            // searchVideos(year,'Clips')
+            // searchVideos(year,'Review')
         })
 }
 
@@ -123,11 +124,11 @@ function searchMovie(movieTitle) {
             if (data.Response === 'True') {
                 searchResultsContainer.classList.remove('is-hidden')
                 for (i = 0; i < 3; i++) {
-                    movieCard[i].setAttribute('data-id',data.Search[i].imdbID)
-                     movieCard[i].onclick=function(event){
+                    movieCard[i].setAttribute('data-id', data.Search[i].imdbID)
+                    movieCard[i].onclick = function (event) {
 
                         getMovieDetails(this.getAttribute('data-id'))
-                      
+
                     }
                     titleSearchEl[i].textContent = data.Search[i].Title
                     console.log(data.Search[i].Poster)
@@ -146,7 +147,7 @@ function searchMovie(movieTitle) {
                 // getMovieDetails(movieId)
 
                 // Pulls up a video for each type
-                
+
                 // searchVideos(year,'Clips')
                 // searchVideos(year,'Review')
             } else {
@@ -160,11 +161,12 @@ function searchMovie(movieTitle) {
             console.error(err);
         });
 }
-function clearResults () {
+
+function clearResults() {
     mainContentContainer.classList.add('is-hidden')
     searchResultsContainer.classList.add('is-hidden')
     backButton.classList.add('is-hidden')
-    movieTitle=''
+    movieTitle = ''
     movieID = ''
 }
 
@@ -172,24 +174,39 @@ function handleSubmit(event) {
     event.preventDefault()
     movieTitle = movieInput.value
     searchMovie(movieTitle)
-    movieInput.value=''
+    movieInput.value = ''
     mainContentContainer.classList.add('is-hidden')
-    
+
     backButton.classList.add('is-hidden')
 }
 
-function loadFavorites(){
-    favorites = JSON.parse(localStorage.getItem('favorites'))
+function loadFavorites() {
+   const favoritetwo =  JSON.parse(localStorage.getItem('favorites'))
+   if (favoritetwo){
+   favorites = JSON.parse(localStorage.getItem('favorites'))} 
     console.log(favorites)
 }
 
-function saveFavorite (){
-    favorites.push({name:movieTitle,id:movieID})
-    localStorage.setItem('favorites',JSON.stringify(favorites))
+function saveFavorite() {
+    const currentfavorite = ({
+        name: movieTitle,
+        id: movieID
+    })
+    console.log(favorites)
+    if (favorites.includes(currentfavorite)) {
+        favorites.splice(favorites.indexOf(currentfavorite), 1)
+        console.log(currentfavorite)
+    } else {
+        favorites.push({
+            name: movieTitle,
+            id: movieID
+        })
+    }
+    localStorage.setItem('favorites', JSON.stringify(favorites))
 }
-
+loadFavorites()
 searchResult.addEventListener("submit", handleSubmit)
 clearButton.onclick = clearResults
 backButton.onclick = goBack
 favoriteEl.onclick = saveFavorite
-favoritesEl.onclick =loadFavorites
+favoritesEl.onclick = loadFavorites
