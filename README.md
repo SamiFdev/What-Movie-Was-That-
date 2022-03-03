@@ -4,7 +4,7 @@ What movie was that is an all in one movie searcher powered by OMDB. It allows u
 ## Usage
 
 
-```python
+```
 Type any movie into the searchbar
 Returns a list of 3 movies with their movie posters
 After clicking on a poster
