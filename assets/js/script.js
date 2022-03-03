@@ -165,6 +165,7 @@ function handleSubmit(event) {
     searchMovie()
     mainContentContainer.classList.add('is-hidden')
     searchResultsContainer.classList.remove('is-hidden')
+    backButton.classList.add('is-hidden')
 }
 
 // Allows enter to be used to submit the input
