@@ -273,7 +273,7 @@ function loadFavorites() {
         //         getMovieDetails(this.getAttribute("data-name"))
         //     }
         //     favoriteBox.append(favbox)
-
+        favorites = favoritetwo
         favoritetwo.forEach((movie)=>{
             let favbox = document.createElement("p")
             favbox.textContent=movie.name
