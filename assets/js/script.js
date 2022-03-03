@@ -17,9 +17,13 @@ const movieCard = document.querySelectorAll('.movieCard')
 const videoEl = document.querySelector('.videos')
 const clearButton = document.querySelector('.clearButton')
 const backButton = document.querySelector('.backButton')
+const favorite = document.querySelector('.favorite')
+const favorites = document.querySelector('.favorites')
 
 // Constants
 let movieTitle; //Change to user input value
+let movieID;
+let favorites = []
 const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
 
 
@@ -81,7 +85,9 @@ function getMovieDetails(movieId) {
         .then(function (response) {
             return response.json()
         }).then(function (data) {
-            mainTitle.textContent = data.Title
+            movieTitle = data.Title
+            movieID = data.imdbID
+            mainTitle.textContent = movieTitle
             mainTitle.classList.add('has-text-weight-bold')
             mainYear.textContent = data.Year
             if (data.Poster!=='N/A'){
@@ -105,7 +111,7 @@ function getMovieDetails(movieId) {
 
 
 // OMDB api
-function searchMovie() {
+function searchMovie(movieTitle) {
     console.log("searchMovie");
     fetch(`http://www.omdbapi.com/?apikey=6c411e7c&s=${movieTitle}`)
         .then(function (response) {
@@ -157,26 +163,33 @@ function searchMovie() {
 function clearResults () {
     mainContentContainer.classList.add('is-hidden')
     searchResultsContainer.classList.add('is-hidden')
+    backButton.classList.add('is-hidden')
+    movieTitle=''
+    movieID = ''
 }
 
 function handleSubmit(event) {
     event.preventDefault()
     movieTitle = movieInput.value
+    searchMovie(movieTitle)
     movieInput.value=''
-    searchMovie()
     mainContentContainer.classList.add('is-hidden')
     
     backButton.classList.add('is-hidden')
 }
 
-// Allows enter to be used to submit the input
-function checkEnter(event){
-    if (event.key === 'Enter'){
-        handleSubmit(event)
-    }
+function loadFavorites(){
+    favorites = JSON.parse(localStorage.getItem('favorites'))
+    console.log(favorites)
+}
+
+function saveFavorite (){
+    favorites.push({name:movieTitle,id:movieID})
+    localStorage.setItem('favorites',JSON.stringify(favorites))
 }
 
 searchResult.addEventListener("submit", handleSubmit)
-searchResult.addEventListener('keydown',checkEnter)
 clearButton.onclick = clearResults
 backButton.onclick = goBack
+favorite.onclick = saveFavorite
+favorites.onclick =loadFavorites
