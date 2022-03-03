@@ -58,3 +58,13 @@ iframe{
     width: 100%;
     height: calc(85%);
 }
+
+
+
+
+/* REMOVE WHEN USING YOUTUBE */
+div>img{
+    object-fit: cover;
+    width:100%;
+    height:80%;
+}
