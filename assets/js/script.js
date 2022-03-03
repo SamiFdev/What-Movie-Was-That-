@@ -188,12 +188,19 @@ function loadFavorites() {
 }
 
 function saveFavorite() {
+    alreadySaved = false;
     const currentfavorite = ({
         name: movieTitle,
         id: movieID
     })
-    console.log(favorites)
-    if (favorites.includes(currentfavorite)) {
+
+    for (let i=0;i<favorites.length;i++){
+        if (favorites[i].id===currentfavorite.id){
+            alreadySaved = true;
+        }
+    }
+
+    if (alreadySaved) {
         favorites.splice(favorites.indexOf(currentfavorite), 1)
         console.log(currentfavorite)
     } else {
@@ -204,6 +211,7 @@ function saveFavorite() {
     }
     localStorage.setItem('favorites', JSON.stringify(favorites))
 }
+
 loadFavorites()
 searchResult.addEventListener("submit", handleSubmit)
 clearButton.onclick = clearResults
