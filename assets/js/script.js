@@ -32,24 +32,40 @@ function searchVideos(selectedTitle,year, videoType) {
     searchResultsContainer.classList.add('is-hidden')
     mainContentContainer.classList.remove('is-hidden')
     console.log(selectedTitle)
-    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${selectedTitle} ${year} ${videoType}&key=${youtubeAPI}&type=video`)
-        .then(function (res) {
-            return res.json()
-        })
-        .then(function (data) {
-            // console.log('youtube', data,title)
-            embeded.setAttribute('src',`https://www.youtube.com/embed/${data.items[0].id.videoId}`)
-            // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
-            embeded.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture')
-            embeded.setAttribute('allowfullscreen',true)
-            trailerTitle.textContent = (data.items[0].snippet.title)
-             videoEl.append(embeded)
-            videoEl.append(trailerTitle)
+
+    // 
+    // CHANGE WHEN USING YOUTUBE!!!!
+    // 
+    
+
+    const temp = document.createElement('img')
+    temp.setAttribute('src','./assets/images/default-video.png')
+    videoEl.append(temp)
+    trailerTitle.textContent = 'TITLE OF VIDEO'
+    videoEl.append(trailerTitle)
+    
+    
+    // 
+    // CHANGE WHEN USING YOUTUBE!!!!
+    // 
+    // fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${selectedTitle} ${year} ${videoType}&key=${youtubeAPI}&type=video`)
+    //     .then(function (res) {
+    //         return res.json()
+    //     })
+    //     .then(function (data) {
+    //         // console.log('youtube', data,title)
+    //         embeded.setAttribute('src',`https://www.youtube.com/embed/${data.items[0].id.videoId}`)
+    //         // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+    //         embeded.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture')
+    //         embeded.setAttribute('allowfullscreen',true)
+    //         trailerTitle.textContent = (data.items[0].snippet.title)
+    //          videoEl.append(embeded)
+    //         videoEl.append(trailerTitle)
            
-        })
-        .catch(err => {
-            console.error(err);
-        });
+    //     })
+    //     .catch(err => {
+    //         console.error(err);
+    //     });
 }
 
 function getMovieDetails(movieId) {
