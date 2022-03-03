@@ -18,6 +18,10 @@
     <section class="has-text-centered has-background-dark p-4">
       <h1 class="title is-1 is-italic has-text-white">What Movie Was That?</h1>
     </section>
+    <div>
+    <button class="js-modal-trigger favorites button is-warning is-rounded" data-target="modal-js-example">
+      Your Favorites!
+    </button></div>
   </header>
 
   <main>
@@ -28,12 +32,10 @@
       <button class="button is-rounded is-danger mx-1 my-auto clearButton">Clear</button>
       <form class="column is-half is-flex" id="searchform">
         <input class="input is-rounded" type="text" placeholder="Search a Movie" id="searchbar">
-        <button class="button is-rounded is-dark mx-1 " type="submit" id="submit">Submit</button>
+        <button class="button is-rounded is-dark mx-3" type="submit" id="submit">Submit</button>
       </form>
     </section>
-<button class="js-modal-trigger favorites button is-primary is-rounded" data-target="modal-js-example">
-  Open JS example modal
-</button>
+
     <!-- Card Container -->
     <section class="container my-5">
 

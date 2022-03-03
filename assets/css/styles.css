@@ -55,9 +55,6 @@ header {
     object-fit: cover;
 }
 
-.button-container {
-
-}
 
 .info-container {
    width: 60%;
@@ -100,4 +97,10 @@ iframe{
 
 .info-container p {
     margin: 10px 0px;
+}
+
+header>div {
+    display: flex;
+    justify-content: end;
+    padding: 5px 8px 0 0;
 }
