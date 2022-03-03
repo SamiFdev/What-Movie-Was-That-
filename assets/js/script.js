@@ -242,23 +242,36 @@ function handleSubmit(event) {
 }
 
 function loadFavorites() {
-    for(i=0; i<favoriteBox.children.length; i++){
-    favoriteBox.removeChild(favoriteBox.firstChild);
-   
-}
+    console.log(favoriteBox.children.length)
+    // for(i=0; i<favoriteBox.childElementCount; i++){
+    //     favoriteBox.removeChild(favoriteBox.firstElementChild);
+    //     console.log(favoriteBox.firstChild)
+    // }
+    favoriteBox.innerHTML=''
     const favoritetwo = JSON.parse(localStorage.getItem('favorites'))
     if (favoritetwo) {
-        favorites = JSON.parse(localStorage.getItem('favorites'))
-    for(i=0; i<favorites.length; i++){
-        let favbox = document.createElement("li")
-        favbox.textContent=favorites[i].name
-        favbox.setAttribute("data-name", favorites[i].name)
-        favbox.onclick = function(){
-            getMovieDetails(this.getAttribute("data-name"))
+        // favorites = JSON.parse(localStorage.getItem('favorites'))
+        // for(i=0; i<favorites.length; i++){
+        //     let favbox = document.createElement("p")
+        //     favbox.textContent=favorites[i].name
+        //     favbox.setAttribute("data-name", favorites[i].name)
+        //     favbox.onclick = function(){
+        //         getMovieDetails(this.getAttribute("data-name"))
+        //     }
+        //     favoriteBox.append(favbox)
+
+        favoritetwo.forEach((movie)=>{
+            let favbox = document.createElement("p")
+            favbox.textContent=movie.name
+            favbox.setAttribute("data-name", movie.name)
+            favbox.onclick = function(){
+                getMovieDetails(this.getAttribute("data-name"))
+            }
+            favoriteBox.append(favbox)
+        })
+
         }
-        favoriteBox.append(favbox)
-    }
-    }
+    
     // console.log(favorites)
     
 }
@@ -277,11 +290,13 @@ function saveFavorite() {
     }
 
     if (alreadySaved) {
-        favorites.splice(favorites.indexOf(currentfavorite), 1)
-        console.log(currentfavorite)
+        // favorites.splice(favorites.indexOf(currentfavorite), 1)
+        // console.log(favorites)
         favoriteEl.setAttribute("style", "color:black;");
-
- loadFavorites()
+        favorites = favorites.filter(function(v) {
+            return v.id !== currentfavorite.id;
+        });
+        
     } else {
         favorites.push({
             name: movieTitle,
@@ -290,7 +305,7 @@ function saveFavorite() {
         favoriteEl.setAttribute("style", "color:yellow;");
     }
     localStorage.setItem('favorites', JSON.stringify(favorites))
-
+    loadFavorites()
 }
 
 loadFavorites()
