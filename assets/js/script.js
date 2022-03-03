@@ -203,11 +203,13 @@ function saveFavorite() {
     if (alreadySaved) {
         favorites.splice(favorites.indexOf(currentfavorite), 1)
         console.log(currentfavorite)
+        favoriteEl.setAttribute("style", "color:black;");
     } else {
         favorites.push({
             name: movieTitle,
             id: movieID
-        })
+        }) 
+        favoriteEl.setAttribute("style", "color:yellow;");
     }
     localStorage.setItem('favorites', JSON.stringify(favorites))
 }
