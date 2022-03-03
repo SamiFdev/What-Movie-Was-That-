@@ -157,7 +157,7 @@ function getMovieDetails(movieId) {
     }else{
         favoriteEl.setAttribute("style", "color:black;");
     }
-    fetch(`http://www.omdbapi.com/?apikey=6c411e7c&i=${movieId}`)
+    fetch(`https://www.omdbapi.com/?apikey=6c411e7c&i=${movieId}`)
         .then(function (response) {
             return response.json()
         }).then(function (data) {
@@ -189,7 +189,7 @@ function getMovieDetails(movieId) {
 // OMDB api
 function searchMovie(movieTitle) {
     console.log("searchMovie");
-    fetch(`http://www.omdbapi.com/?apikey=6c411e7c&s=${movieTitle}`)
+    fetch(`https://www.omdbapi.com/?apikey=6c411e7c&s=${movieTitle}`)
         .then(function (response) {
             return response.json()
         }).then(function (data) {
