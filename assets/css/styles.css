@@ -1,108 +1,109 @@
+*{
+    box-sizing: border-box;
+}
+
 html {
     background-color: #c3c3c3;
 }
-
 
 header {
     font-family: 'Halant', serif;
 }
 
+/* Back and favorite list button positions */
+header>div{
+    position: relative;
+}
+.backButton {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+}
+.favorites {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
 
+/* Search bar bellow back and favorite buttons */
+.searchBar{
+    margin:2rem 0.1rem;
+}
 
+/* Cards for search results */
 .searchresults .card{
     min-height: 700px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     background-color: #e6e6e6;
-
 }
-
 .searchresults .card:hover {
     transform: scale(1.05);
 }
 
-.maincontent .card {
-    min-height: 500px;
-    background-color: #e6e6e6;
+/* All posters */
+.image img {
+    max-width: 300px;
+    border: 2px solid silver;
+    border-radius: 4px;
 }
-.poster-search{
-    height: 100%;
+
+/* Poster for search results */
+.poster-search {
+    height: 500px;
     max-width: 300px;
     margin: auto;
 }
 
+/* Card for main content */
+.maincontent .card {
+    min-height: 500px;
+    background-color: #e6e6e6;
+}
+
+/* Movie detail poster */
+.mainImage img {
+    height: 400px;
+    
+    object-fit: cover;
+}
+
+/* Movie details */
+.info-container {
+   width: 60%;
+   padding: 2rem;
+}
 .info-container p {
     font-weight: bold;
+    margin: 10px 0px;
 }
 .info-container span {
     font-weight: normal;
 }
 
-.image img {
-    height: 500px;
-    object-fit: cover;
-    border: 2px solid silver;
-    border-radius: 4px;
+/* Favorite icon */
+.favoriteContainer {
+   width: 100%;
+   text-align: end;
+}
+.favorite {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.favorite:hover {
+    transform: scale(1.05);
 }
 
-.mainImage {
-    /* float: left; */
-}
-
-.mainImage img {
-    height: 400px;
-    max-width: 300px;
-    object-fit: cover;
-}
-
-
-.info-container {
-   width: 60%;
-   padding: 2rem;
-}
-
+/* Youtube */
 .videos {
 height: 100%;
 }
-
 iframe{
-
     width: 100%;
     height: calc(85%);
 }
 
-
-
-
-/* REMOVE WHEN USING YOUTUBE */
-/* div>img{
-    object-fit: cover;
-    width:100%;
-    height:80%;
-} */
-
-.favorite {
-    cursor: pointer;
-    
-}
-
-.favoriteContainer {
-   width: 100%;
-   text-align: end;
-
-}
-.favorite:hover {
-    transform: scale(1.00);
-}
-
-.info-container p {
-    margin: 10px 0px;
-}
-
-header>div {
-    position: relative;
-}
-
+/* Favorites list */
 .modal p {
     cursor: pointer;
     width: fit-content;
@@ -111,15 +112,16 @@ header>div {
     font-size: larger;
 }
 
-.backButton {
-    position: absolute;
-    top: 5px;
-    left: 10px;
+
+@media screen and (max-width:769px) {
+    .searchBar{
+        margin-top:3rem;
+    }
 }
 
-.favorites {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-}
+
+
+
+
+
 

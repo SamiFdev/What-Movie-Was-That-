@@ -28,80 +28,56 @@ let movieID;
 let favorites = []
 const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // YouTube Search API
 function searchVideos(selectedTitle, year, videoType) {
+
+    // Removes any previous videos
     videoEl.replaceChildren()
-    const embeded = document.createElement('iframe')
+
+    // Creates elements for youtube section
+    const embedded = document.createElement('iframe')
     const trailerTitle = document.createElement('h1')
     trailerTitle.classList.add("is-size-5");
     trailerTitle.classList.add("has-text-weight-bold")
+
+    // Displays main page and hides search results
     searchResultsContainer.classList.add('is-hidden')
     mainContentContainer.classList.remove('is-hidden')
-    console.log(selectedTitle)
 
-    // 
-    // CHANGE WHEN USING YOUTUBE!!!!
-    // 
-
-
-    // const temp = document.createElement('img')
-    // temp.setAttribute('src', './assets/images/default-video.png')
-    // videoEl.append(temp)
-    // trailerTitle.textContent = 'TITLE OF VIDEO'
-    // videoEl.append(trailerTitle)
-
-
-    // 
-    // CHANGE WHEN USING YOUTUBE!!!!
-    // 
+    // Gets Youtube data
     fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${selectedTitle} ${year} ${videoType}&key=${youtubeAPI}&type=video`)
         .then(function (res) {
             return res.json()
         })
         .then(function (data) {
-            // console.log('youtube', data,title)
-            embeded.setAttribute('src',`https://www.youtube.com/embed/${data.items[0].id.videoId}`)
-            // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
-            embeded.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture')
-            embeded.setAttribute('allowfullscreen',true)
-            trailerTitle.innerHTML = (data.items[0].snippet.title)
-             videoEl.append(embeded)
-            videoEl.append(trailerTitle)
 
+            // Sets up the iframe
+            embedded.setAttribute('src',`https://www.youtube.com/embed/${data.items[0].id.videoId}`)
+            embedded.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture')
+            embedded.setAttribute('allowfullscreen',true)
+            embedded.setAttribute('style','height:400px;')
+            trailerTitle.innerHTML = (data.items[0].snippet.title)
+            videoEl.append(embedded)
+            videoEl.append(trailerTitle)
         })
         .catch(err => {
             console.error(err);
         });
 }
 
+// Returns to search results page
 function goBack() {
     mainContentContainer.classList.add('is-hidden')
     searchResultsContainer.classList.remove('is-hidden')
     backButton.classList.add('is-hidden')
-
 }
 
+// Gets full details of the movie
 function getMovieDetails(movieId) {
-    console.log(movieId)
-    alreadyFavorited = false
     backButton.classList.remove('is-hidden')
+
+    // Changes the star color if already favorited
+    alreadyFavorited = false
     favorites.forEach(movie=>{
         if (movie.id === movieId){
             alreadyFavorited = true
@@ -112,15 +88,20 @@ function getMovieDetails(movieId) {
     }else{
         favoriteEl.setAttribute("style", "color:black;");
     }
+
+    
     fetch(`https://www.omdbapi.com/?apikey=6c411e7c&i=${movieId}`)
         .then(function (response) {
             return response.json()
         }).then(function (data) {
+
+            // Stores relevant data
             movieTitle = data.Title
             movieID = data.imdbID
             mainTitle.textContent = movieTitle
             mainTitle.classList.add('has-text-weight-bold')
             mainYear.textContent = data.Year
+
             if (data.Poster !== 'N/A') {
                 mainPoster.setAttribute('src', data.Poster)
             } else {
@@ -130,11 +111,9 @@ function getMovieDetails(movieId) {
             mGenre.textContent = data.Genre
             mRating.textContent = data.Rated
             mScore.textContent = data.imdbRating
+
+            // Searches youtube for a trailer of the movie with the year to prevent incorrect searches
             searchVideos(data.Title, data.Year, 'Trailer')
-            // Pulls up a video for each type
-            // searchVideos(year,'Trailer')
-            // searchVideos(year,'Clips')
-            // searchVideos(year,'Review')
         })
 }
 
@@ -151,7 +130,10 @@ function searchMovie(movieTitle) {
             // Checks if a movie was found
             if (data.Response === 'True') {
                 searchResultsContainer.classList.remove('is-hidden')
+
                 for (i = 0; i < 3; i++) {
+                    
+                    // Makes cards clickable to get details
                     movieCard[i].setAttribute('data-id', data.Search[i].imdbID)
                     movieCard[i].onclick = function (event) {
 
@@ -159,19 +141,20 @@ function searchMovie(movieTitle) {
 
                     }
                     titleSearchEl[i].textContent = data.Search[i].Title
-                    console.log(data.Search[i].Poster)
+                    searchYearEl[i].textContent = data.Search[i].Year
+
+                    // Checks if there is a poster
                     if (data.Search[i].Poster != 'N/A') {
                         posterSearchEl[i].setAttribute("src", data.Search[i].Poster)
                     } else {
                         posterSearchEl[i].setAttribute("src", './assets/images/default-image.png')
                     }
-                    searchYearEl[i].textContent = data.Search[i].Year
                 }
               
             } else {
 
-                // Change from an alert to display on page
-                alert('No such movie')
+                // Opens modal if movie is not in database
+                document.querySelector('#warning').classList.add('is-active')
             }
 
         })
@@ -188,6 +171,7 @@ function clearResults() {
     movieID = ''
 }
 
+// Searches movie, hides back button and detail page(in case it was searched from detail page)
 function handleSubmit(event) {
     event.preventDefault()
     movieTitle = movieInput.value
@@ -198,15 +182,23 @@ function handleSubmit(event) {
 }
 
 function loadFavorites() {
+
+    // Clears favorite list
     favoriteBox.innerHTML=''
+
+    // Temporarily loads storage to check if it is empty
     const favoritesLoaded = JSON.parse(localStorage.getItem('favorites'))
     if (!favoritesLoaded || !favoritesLoaded.length){
         favoriteBox.innerHTML = '<p>No favorites</p>'
     }
     else if (favoritesLoaded) {
        
+        // Stores loaded data into favorites array
         favorites = favoritesLoaded
+        
+        // Creates favorites list in modal
         favorites.forEach((movie)=>{
+            const horizontalLine = document.createElement('hr')
             let favoriteItem = document.createElement("p")
             favoriteItem.textContent=movie.name
             favoriteItem.setAttribute("data-name", movie.name)
@@ -215,13 +207,10 @@ function loadFavorites() {
                 getMovieDetails(this.getAttribute("data-id"))
                 modalEl.classList.remove('is-active')
             }
-            favoriteBox.append(favoriteItem)
+            favoriteBox.append(horizontalLine,favoriteItem)
         })
 
-        } 
-    
-    // console.log(favorites)
-    
+    } 
 }
 
 function saveFavorite() {
@@ -231,29 +220,37 @@ function saveFavorite() {
         id: movieID
     })
 
+    // Checks if movie is saved
     for (let i=0;i<favorites.length;i++){
         if (favorites[i].id===currentfavorite.id){
             alreadySaved = true;
         }
     }
 
+    // Removes movie from favorites if star is clicked when already favorited
     if (alreadySaved) {
         favoriteEl.setAttribute("style", "color:black;");
         favorites = favorites.filter(function(v) {
             return v.id !== currentfavorite.id;
         });
         
-    } else {
+    } 
+    
+    // Adds to favorites if star is clicked
+    else {
         favorites.push({
             name: movieTitle,
             id: movieID
         }) 
         favoriteEl.setAttribute("style", "color:yellow;");
     }
+
+    // Saves and loads data
     localStorage.setItem('favorites', JSON.stringify(favorites))
     loadFavorites()
 }
 
+// Runs on page load
 function init () {
     loadFavorites()
     searchResult.addEventListener("submit", handleSubmit)
