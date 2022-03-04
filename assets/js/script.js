@@ -21,6 +21,7 @@ const favoriteEl = document.querySelector('.favorite')
 const favoritesEl = document.querySelector('.favorites')
 const favoriteBox = document.querySelector('.favoritesContainer')
 const modalEl = document.querySelector('.modal')
+const clearFavs = document.querySelector('.clearFavs')
 
 // Constants
 let movieTitle; 
@@ -89,7 +90,7 @@ function getMovieDetails(movieId) {
         favoriteEl.setAttribute("style", "color:black;");
     }
 
-    
+        // fetching data from omdb and returns all movie details
     fetch(`https://www.omdbapi.com/?apikey=6c411e7c&i=${movieId}`)
         .then(function (response) {
             return response.json()
@@ -102,6 +103,7 @@ function getMovieDetails(movieId) {
             mainTitle.classList.add('has-text-weight-bold')
             mainYear.textContent = data.Year
 
+            // if no poster comes back from search, this displays filler image (selected movie)
             if (data.Poster !== 'N/A') {
                 mainPoster.setAttribute('src', data.Poster)
             } else {
@@ -118,14 +120,14 @@ function getMovieDetails(movieId) {
 }
 
 
-// OMDB api
+// OMDB api searching for title and returns possible matches
 function searchMovie(movieTitle) {
     
     fetch(`https://www.omdbapi.com/?apikey=6c411e7c&s=${movieTitle}`)
         .then(function (response) {
             return response.json()
         }).then(function (data) {
-            console.log('OMDB', data)
+            
 
             // Checks if a movie was found
             if (data.Response === 'True') {
@@ -143,7 +145,7 @@ function searchMovie(movieTitle) {
                     titleSearchEl[i].textContent = data.Search[i].Title
                     searchYearEl[i].textContent = data.Search[i].Year
 
-                    // Checks if there is a poster
+                    // Checks if there is a poster for search results page
                     if (data.Search[i].Poster != 'N/A') {
                         posterSearchEl[i].setAttribute("src", data.Search[i].Poster)
                     } else {
@@ -162,7 +164,7 @@ function searchMovie(movieTitle) {
             console.error(err);
         });
 }
-
+// clears out search and hides everything that isnt required for a new search
 function clearResults() {
     mainContentContainer.classList.add('is-hidden')
     searchResultsContainer.classList.add('is-hidden')
@@ -215,14 +217,14 @@ function loadFavorites() {
 
 function saveFavorite() {
     alreadySaved = false;
-    const currentfavorite = ({
-        name: movieTitle,
-        id: movieID
-    })
+    // const currentfavorite = ({
+    //     name: movieTitle,
+    //     id: movieID
+    // })
 
     // Checks if movie is saved
     for (let i=0;i<favorites.length;i++){
-        if (favorites[i].id===currentfavorite.id){
+        if (favorites[i].id===movieID){
             alreadySaved = true;
         }
     }
@@ -231,7 +233,7 @@ function saveFavorite() {
     if (alreadySaved) {
         favoriteEl.setAttribute("style", "color:black;");
         favorites = favorites.filter(function(v) {
-            return v.id !== currentfavorite.id;
+            return v.id !== movieID;
         });
         
     } 
@@ -249,7 +251,11 @@ function saveFavorite() {
     localStorage.setItem('favorites', JSON.stringify(favorites))
     loadFavorites()
 }
-
+// clear favorites function
+function clearFavorites() {
+    favorites=[]
+    saveFavorite()
+}
 // Runs on page load
 function init () {
     loadFavorites()
@@ -258,6 +264,7 @@ function init () {
     backButton.onclick = goBack
     favoriteEl.onclick = saveFavorite
     favoritesEl.onclick = loadFavorites
+    clearFavs.onclick = clearFavorites
 
     // Modal
     document.addEventListener('DOMContentLoaded', () => {
