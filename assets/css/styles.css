@@ -27,7 +27,7 @@ header>div{
 
 /* Search bar bellow back and favorite buttons */
 .searchBar{
-    margin:2rem 0.1rem;
+    margin:3rem 0.1rem;
 }
 
 /* Cards for search results */
@@ -64,13 +64,12 @@ header>div{
 /* Movie detail poster */
 .mainImage img {
     height: 400px;
-    
+    margin:auto;
     object-fit: cover;
 }
 
 /* Movie details */
 .info-container {
-   width: 60%;
    padding: 2rem;
 }
 .info-container p {
@@ -95,9 +94,6 @@ header>div{
 }
 
 /* Youtube */
-.videos {
-height: 100%;
-}
 iframe{
     width: 100%;
     height: calc(85%);
@@ -111,14 +107,48 @@ iframe{
     margin: 10px auto;
     font-size: larger;
 }
+.movieInfoContainer{
+    display:block;
+}
 
-
-@media screen and (max-width:769px) {
-    .searchBar{
-        margin-top:3rem;
+@media screen and (min-width:500px) {
+    .movieInfoContainer{
+        display:flex;
+        justify-content: space-around;
+    }
+    .info-container {
+        width: 60%;  
     }
 }
 
+@media screen and (min-width:769px) {
+    .searchBar{
+        margin-top:2rem 0.1;
+    }
+    .movieInfoContainer{
+        display:block;
+    }
+    .mainImage img {
+        margin: auto;
+    }
+    .info-container {
+        width: 100%;  
+    }
+}
+@media screen and (min-width:1000px) {
+    .movieInfoContainer{
+        display:flex;
+        justify-content: space-around;
+    }
+    .info-container {
+        width: 60%;  
+    }
+}
+
+
+
+
+block before 500 flex until 769 block until 1000
 
 
 
