@@ -71,6 +71,8 @@ function goBack() {
     mainContentContainer.classList.add('is-hidden')
     searchResultsContainer.classList.remove('is-hidden')
     backButton.classList.add('is-hidden')
+    favoriteEl.removeAttribute('data-name')
+    favoriteEl.removeAttribute('data-id')
 }
 
 // Gets full details of the movie
@@ -102,6 +104,9 @@ function getMovieDetails(movieId) {
             mainTitle.textContent = movieTitle
             mainTitle.classList.add('has-text-weight-bold')
             mainYear.textContent = data.Year
+
+            favoriteEl.setAttribute('data-name',movieTitle)
+            favoriteEl.setAttribute('data-id',movieID)
 
             // if no poster comes back from search, this displays filler image (selected movie)
             if (data.Poster !== 'N/A') {
@@ -171,6 +176,8 @@ function clearResults() {
     backButton.classList.add('is-hidden')
     movieTitle = ''
     movieID = ''
+    favoriteEl.removeAttribute('data-name')
+    favoriteEl.removeAttribute('data-id')
 }
 
 // Searches movie, hides back button and detail page(in case it was searched from detail page)
@@ -181,6 +188,8 @@ function handleSubmit(event) {
     movieInput.value = ''
     mainContentContainer.classList.add('is-hidden')
     backButton.classList.add('is-hidden')
+    favoriteEl.removeAttribute('data-name')
+    favoriteEl.removeAttribute('data-id')
 }
 
 function loadFavorites() {
@@ -216,35 +225,41 @@ function loadFavorites() {
 }
 
 function saveFavorite() {
-    alreadySaved = false;
-    // const currentfavorite = ({
-    //     name: movieTitle,
-    //     id: movieID
-    // })
-
-    // Checks if movie is saved
-    for (let i=0;i<favorites.length;i++){
-        if (favorites[i].id===movieID){
-            alreadySaved = true;
-        }
-    }
-
-    // Removes movie from favorites if star is clicked when already favorited
-    if (alreadySaved) {
+    console.log(this)
+    if (this===window){
         favoriteEl.setAttribute("style", "color:black;");
-        favorites = favorites.filter(function(v) {
-            return v.id !== movieID;
-        });
-        
-    } 
+    }else{
+        alreadySaved = false;
+        const currentfavorite = ({
+            name: this.getAttribute('data-name'),
+            id: this.getAttribute('data-id')
+        })
     
-    // Adds to favorites if star is clicked
-    else {
-        favorites.push({
-            name: movieTitle,
-            id: movieID
-        }) 
-        favoriteEl.setAttribute("style", "color:yellow;");
+        // Checks if movie is saved
+        for (let i=0;i<favorites.length;i++){
+            if (favorites[i].id===currentfavorite.id){
+                alreadySaved = true;
+            }
+        }
+    
+        // Removes movie from favorites if star is clicked when already favorited
+        if (alreadySaved) {
+            favoriteEl.setAttribute("style", "color:black;");
+            favorites = favorites.filter(function(v) {
+                return v.id !== currentfavorite.id;
+            });
+            
+        } 
+        
+        // Adds to favorites if star is clicked
+        else {
+            favorites.push({
+                name: currentfavorite.name,
+                id: currentfavorite.id
+            }) 
+            favoriteEl.setAttribute("style", "color:yellow;");
+        }
+
     }
 
     // Saves and loads data
