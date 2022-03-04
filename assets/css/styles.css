@@ -14,6 +14,8 @@ header {
 header>div{
     position: relative;
 }
+
+
 .backButton {
     position: absolute;
     top: 5px;
@@ -24,6 +26,12 @@ header>div{
     top: 5px;
     right: 10px;
 }
+
+/* .previous {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+} */
 
 /* Search bar bellow back and favorite buttons */
 .searchBar{
@@ -148,7 +156,6 @@ iframe{
 
 
 
-block before 500 flex until 769 block until 1000
 
 
 
