@@ -22,11 +22,15 @@ const favoritesEl = document.querySelector('.favorites')
 const favoriteBox = document.querySelector('.favoritesContainer')
 const modalEl = document.querySelector('.modal')
 const clearFavs = document.querySelector('.clearFavs')
+const previousBtn = document.querySelector('.previous')
+const nextBtn = document.querySelector('.next')
 
 // Constants
 let movieTitle; 
 let movieID;
-let favorites = []
+let favorites = [];
+let searchList;
+let currentIndex = 0;
 const youtubeAPI = 'AIzaSyARoCQOMM8wFTSsLyefC3mTZPCsXhr_pYg'
 
 // YouTube Search API
@@ -73,12 +77,16 @@ function goBack() {
     backButton.classList.add('is-hidden')
     favoriteEl.removeAttribute('data-name')
     favoriteEl.removeAttribute('data-id')
+    currentIndex = 0;
+    previousBtn.classList.remove('is-hidden')
+    nextBtn.classList.remove('is-hidden')
 }
 
 // Gets full details of the movie
 function getMovieDetails(movieId) {
     backButton.classList.remove('is-hidden')
-
+    previousBtn.classList.add('is-hidden')
+    nextBtn.classList.add('is-hidden')
     // Changes the star color if already favorited
     alreadyFavorited = false
     favorites.forEach(movie=>{
@@ -124,10 +132,32 @@ function getMovieDetails(movieId) {
         })
 }
 
+function loadSearchResults (){
+    previousBtn.classList.remove('is-hidden')
+    nextBtn.classList.remove('is-hidden')
+    for (i = 0; i < 3; i++) {
+                    
+        // Makes cards clickable to get details
+        movieCard[i].setAttribute('data-id', searchList[i+currentIndex].imdbID)
+        movieCard[i].onclick = function (event) {
 
+            getMovieDetails(this.getAttribute('data-id'))
+
+        }
+        titleSearchEl[i].textContent = searchList[i+currentIndex].Title
+        searchYearEl[i].textContent = searchList[i+currentIndex].Year
+
+        // Checks if there is a poster for search results page
+        if (searchList[i+currentIndex].Poster != 'N/A') {
+            posterSearchEl[i].setAttribute("src", searchList[i+currentIndex].Poster)
+        } else {
+            posterSearchEl[i].setAttribute("src", './assets/images/default-image.png')
+        }
+    }
+}
 // OMDB api searching for title and returns possible matches
 function searchMovie(movieTitle) {
-    
+    currentIndex = 0;
     fetch(`https://www.omdbapi.com/?apikey=6c411e7c&s=${movieTitle}`)
         .then(function (response) {
             return response.json()
@@ -137,26 +167,27 @@ function searchMovie(movieTitle) {
             // Checks if a movie was found
             if (data.Response === 'True') {
                 searchResultsContainer.classList.remove('is-hidden')
-
-                for (i = 0; i < 3; i++) {
+                searchList = data.Search
+                loadSearchResults()
+                // for (i = 0; i < 3; i++) {
                     
-                    // Makes cards clickable to get details
-                    movieCard[i].setAttribute('data-id', data.Search[i].imdbID)
-                    movieCard[i].onclick = function (event) {
+                //     Makes cards clickable to get details
+                //     movieCard[i].setAttribute('data-id', data.Search[i].imdbID)
+                //     movieCard[i].onclick = function (event) {
 
-                        getMovieDetails(this.getAttribute('data-id'))
+                //         getMovieDetails(this.getAttribute('data-id'))
 
-                    }
-                    titleSearchEl[i].textContent = data.Search[i].Title
-                    searchYearEl[i].textContent = data.Search[i].Year
+                //     }
+                //     titleSearchEl[i].textContent = data.Search[i].Title
+                //     searchYearEl[i].textContent = data.Search[i].Year
 
-                    // Checks if there is a poster for search results page
-                    if (data.Search[i].Poster != 'N/A') {
-                        posterSearchEl[i].setAttribute("src", data.Search[i].Poster)
-                    } else {
-                        posterSearchEl[i].setAttribute("src", './assets/images/default-image.png')
-                    }
-                }
+                //     Checks if there is a poster for search results page
+                //     if (data.Search[i].Poster != 'N/A') {
+                //         posterSearchEl[i].setAttribute("src", data.Search[i].Poster)
+                //     } else {
+                //         posterSearchEl[i].setAttribute("src", './assets/images/default-image.png')
+                //     }
+                // }
               
             } else {
 
@@ -178,6 +209,9 @@ function clearResults() {
     movieID = ''
     favoriteEl.removeAttribute('data-name')
     favoriteEl.removeAttribute('data-id')
+    currentIndex = 0;
+    previousBtn.classList.add('is-hidden')
+    nextBtn.classList.add('is-hidden')
 }
 
 // Searches movie, hides back button and detail page(in case it was searched from detail page)
@@ -225,7 +259,6 @@ function loadFavorites() {
 }
 
 function saveFavorite() {
-    console.log(this)
     if (this===window){
         favoriteEl.setAttribute("style", "color:black;");
     }else{
@@ -271,6 +304,19 @@ function clearFavorites() {
     favorites=[]
     saveFavorite()
 }
+
+function previous(){
+    if (currentIndex>0){
+        currentIndex--
+    }
+    loadSearchResults()
+}
+function next () {
+    if(currentIndex<(searchList.length-3)){
+        currentIndex++
+    }
+    loadSearchResults()
+}
 // Runs on page load
 function init () {
     loadFavorites()
@@ -280,6 +326,8 @@ function init () {
     favoriteEl.onclick = saveFavorite
     favoritesEl.onclick = loadFavorites
     clearFavs.onclick = clearFavorites
+    previousBtn.onclick = previous
+    nextBtn.onclick = next
 
     // Modal
     document.addEventListener('DOMContentLoaded', () => {
@@ -302,7 +350,6 @@ function init () {
         (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
             const modal = $trigger.dataset.target;
             const $target = document.getElementById(modal);
-            console.log($target);
 
             $trigger.addEventListener('click', () => {
                 openModal($target);
