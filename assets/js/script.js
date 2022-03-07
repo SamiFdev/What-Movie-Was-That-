@@ -169,25 +169,7 @@ function searchMovie(movieTitle) {
                 searchResultsContainer.classList.remove('is-hidden')
                 searchList = data.Search
                 loadSearchResults()
-                // for (i = 0; i < 3; i++) {
-                    
-                //     Makes cards clickable to get details
-                //     movieCard[i].setAttribute('data-id', data.Search[i].imdbID)
-                //     movieCard[i].onclick = function (event) {
-
-                //         getMovieDetails(this.getAttribute('data-id'))
-
-                //     }
-                //     titleSearchEl[i].textContent = data.Search[i].Title
-                //     searchYearEl[i].textContent = data.Search[i].Year
-
-                //     Checks if there is a poster for search results page
-                //     if (data.Search[i].Poster != 'N/A') {
-                //         posterSearchEl[i].setAttribute("src", data.Search[i].Poster)
-                //     } else {
-                //         posterSearchEl[i].setAttribute("src", './assets/images/default-image.png')
-                //     }
-                // }
+              
               
             } else {
 
