@@ -1,204 +1,204 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What Movie Was That?</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Halant:wght@300&family=Shizuru&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <link rel="stylesheet" href="./assets/css/styles.css">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>What Movie Was That?</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Halant:wght@300&family=Shizuru&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="./assets/css/styles.css">
+  </head>
 
-<body>
+  <body>
 
-  
-  <header>
+    
+    <header>
 
-    <!-- Title -->
-    <section class="has-text-centered has-background-dark p-4">
-      <h1 class="title is-1 is-italic has-text-white">What Movie Was That?</h1>
-    </section>
-<!-- 
-    <button class="previous is-hidden button is-primary is-rounded">Previous</button>
-    <button class="next is-hidden button is-primary is-rounded">Next</button> -->
-    <div>
+      <!-- Title -->
+      <section class="has-text-centered has-background-dark p-4">
+        <h1 class="title is-1 is-italic has-text-white">What Movie Was That?</h1>
+      </section>
 
-      <!-- Back and favorite buttons -->
-      <button class="button is-rounded is-dark mx-1 my-auto backButton is-hidden">Back to results</button>
-      
-      <button class="js-modal-trigger favorites button is-warning is-rounded" data-target="modal-js-example">
-        Your Favorites!
-      </button>
+      <div>
 
-    </div>
-  </header>
+        <!-- Back and favorite buttons -->
+        <button class="button is-rounded is-dark mx-1 my-auto backButton is-hidden">Back to results</button>
+        
+        <button class="js-modal-trigger favorites button is-warning is-rounded" data-target="modal-js-example">
+          Your Favorites!
+        </button>
 
-  <main>
+      </div>
+    </header>
 
-    <!-- Input form -->
-    <section class="columns is-centered searchBar">
-      
-      <!-- Clear button -->
-      <button class="button is-rounded is-danger mx-3 my-auto clearButton">Clear</button>
+    <main>
 
       <!-- Input form -->
-      <form class="column is-half is-flex" id="searchform">
+      <section class="columns is-centered searchBar">
+        
+        <!-- Clear button -->
+        <button class="button is-rounded is-danger mx-3 my-auto clearButton">Clear</button>
 
-        <input class="input is-rounded" type="text" placeholder="Search a Movie" id="searchbar">
-        <button class="button is-rounded is-dark mx-3" type="submit" id="submit">Submit</button>
-      
-      </form>
-    </section>
-    <div class="nandp has-text-centered">
-    <button class="previous is-hidden button is-dark is-rounded"><i class="fa-solid fa-arrow-left-long"></i></button>
-    <button class="next is-hidden button is-dark is-rounded"><i class="fa-solid fa-arrow-right-long"></i></button>
-</div>
-    <!-- Card Container -->
-    <section class="container my-5">
+        <!-- Input form -->
+        <form class="column is-half is-flex" id="searchform">
 
-      <!-- ----  -->
-      <!-- Cards for search results, hidden by default -->
-      <!-- ---- -->
-      <section class="columns searchresults is-hidden">
-
-
-        <!-- Card 1 -->
-        <section class="column movieCard">
-          <div class="card p-3">
-
-            <figure class="image is-440x300">
-              <img class="poster-search" src="https://bulma.io/images/placeholders/480x480.png">
-            </figure>
-
-            <div class="content has-text-centered mb-0">
-              <h1 class="movie title is-3">Title</h1>
-              <h2 class="subtitle is-6 releaseYear">Subtitle</h2>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- Card 2 -->
-        <section class="column movieCard">
-          <div class="card p-3">
-
-            <figure class="image is-440x300">
-              <img class="poster-search" src="https://bulma.io/images/placeholders/480x480.png">
-            </figure>
-
-            <div class="content has-text-centered">
-              <h1 class="movie title is-3">Title</h1>
-              <h2 class="subtitle is-6 releaseYear">Subtitle</h2>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- Card 3 -->
-        <section class="column movieCard">
-          <div class="card p-3">
-
-            <figure class="image is-440x300">
-              <img class="poster-search" src="https://bulma.io/images/placeholders/480x480.png">
-            </figure>
-
-            <div class="content has-text-centered">
-              <h1 class="movie title is-3">Title</h1>
-              <h2 class="subtitle is-6 releaseYear">Subtitle</h2>
-            </div>
-
-        </section>
+          <input class="input is-rounded" type="text" placeholder="Search a Movie" id="searchbar">
+          <button class="button is-rounded is-dark mx-3" type="submit" id="submit">Submit</button>
+        
+        </form>
       </section>
 
-      <!-- ----  -->
-      <!-- Cards for main page, hidden by default -->
-      <!-- ----  -->
-      <section class="columns maincontent is-hidden">
+      <div class="nandp has-text-centered">
+        <button class="previous is-hidden button is-dark is-rounded"><i class="fa-solid fa-arrow-left-long"></i></button>
+        <button class="next is-hidden button is-dark is-rounded"><i class="fa-solid fa-arrow-right-long"></i></button>
+      </div>
 
-        <!-- Card 1 - Movie details-->
-        <section class="column">
-          <div class="card p-3">
-            <div class="movieInfoContainer">
+      <!-- Card Container -->
+      <section class="container my-5">
 
-              <!-- Poster -->
-              <figure class="image  mainImage">
-                <img class="main-poster" src="https://bulma.io/images/placeholders/480x480.png">
+        <!-- ----  -->
+        <!-- Cards for search results, hidden by default -->
+        <!-- ---- -->
+        <section class="columns searchresults is-hidden">
+
+
+          <!-- Card 1 -->
+          <section class="column movieCard">
+            <div class="card p-3">
+
+              <figure class="image is-440x300">
+                <img class="poster-search" src="https://bulma.io/images/placeholders/480x480.png">
               </figure>
 
-              <!-- Movie info -->
-              <div class="info-container">
+              <div class="content has-text-centered mb-0">
+                <h1 class="movie title is-3">Title</h1>
+                <h2 class="subtitle is-6 releaseYear">Subtitle</h2>
+              </div>
 
-                <div class="favoriteContainer">
-                  <i class="fa-solid fa-star favorite"></i>
+            </div>
+          </section>
+
+          <!-- Card 2 -->
+          <section class="column movieCard">
+            <div class="card p-3">
+
+              <figure class="image is-440x300">
+                <img class="poster-search" src="https://bulma.io/images/placeholders/480x480.png">
+              </figure>
+
+              <div class="content has-text-centered">
+                <h1 class="movie title is-3">Title</h1>
+                <h2 class="subtitle is-6 releaseYear">Subtitle</h2>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- Card 3 -->
+          <section class="column movieCard">
+            <div class="card p-3">
+
+              <figure class="image is-440x300">
+                <img class="poster-search" src="https://bulma.io/images/placeholders/480x480.png">
+              </figure>
+
+              <div class="content has-text-centered">
+                <h1 class="movie title is-3">Title</h1>
+                <h2 class="subtitle is-6 releaseYear">Subtitle</h2>
+              </div>
+
+          </section>
+        </section>
+
+        <!-- ----  -->
+        <!-- Cards for main page, hidden by default -->
+        <!-- ----  -->
+        <section class="columns maincontent is-hidden">
+
+          <!-- Card 1 - Movie details-->
+          <section class="column">
+            <div class="card p-3">
+              <div class="movieInfoContainer">
+
+                <!-- Poster -->
+                <figure class="image  mainImage">
+                  <img class="main-poster" src="https://bulma.io/images/placeholders/480x480.png">
+                </figure>
+
+                <!-- Movie info -->
+                <div class="info-container">
+
+                  <div class="favoriteContainer">
+                    <i class="fa-solid fa-star favorite"></i>
+                  </div>
+                  <p>Movie Rating: <span id="movieRating"> </span></p>
+                  <p>Genres: <span id="genre"></span></p>
+                  <p>Plot: <span id="plot"></span></p>
+                  <p>IMDB rating: <span id="ratingScore">Rating Score</span></p>
                 </div>
-                <p>Movie Rating: <span id="movieRating"> </span></p>
-                <p>Genres: <span id="genre"></span></p>
-                <p>Plot: <span id="plot"></span></p>
-                <p>IMDB rating: <span id="ratingScore">Rating Score</span></p>
+              </div>
+
+              <!-- Movie title and year -->
+              <div class="button-container">
+
+                <h1 class="is-size-4 titleofmovie has-text-centered">Movie Title</h1>
+                <h2 class="subtitle is-6 main-year has-text-centered">Subtitle</h2>
+
               </div>
             </div>
+          </section>
 
-            <!-- Movie title and year -->
-            <div class="button-container">
-
-              <h1 class="is-size-4 titleofmovie has-text-centered">Movie Title</h1>
-              <h2 class="subtitle is-6 main-year has-text-centered">Subtitle</h2>
-
+          <!-- Card 2 -Youtube Video-->
+          <section class="column">
+            <div class="card p-3 has-text-centered videos">
+              
+              <!-- YOUTUBE CONTENT GOES HERE -->
             </div>
-          </div>
-        </section>
+          </section>
 
-        <!-- Card 2 -Youtube Video-->
-        <section class="column">
-          <div class="card p-3 has-text-centered videos">
-            
-            <!-- YOUTUBE CONTENT GOES HERE -->
-          </div>
         </section>
-
       </section>
-    </section>
-  </main>
+    </main>
 
-  <!-- Favorites list modal -->
-  <div id="modal-js-example" class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-      <div class="box">
+    <!-- Favorites list modal -->
+    <div id="modal-js-example" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
 
-        <h1 class="is-size-3 has-text-weight-bold has-text-centered">Favorites List</h1>
-        <div class="box favoritesContainer">
-          <!-- Favorite movies go here -->
+          <h1 class="is-size-3 has-text-weight-bold has-text-centered">Favorites List</h1>
+          <div class="box favoritesContainer">
+            <!-- Favorite movies go here -->
+          </div>
+          <button class="button is-rounded is-danger clearFavs">Clear Favorites</button>
         </div>
-        <button class="button is-rounded is-danger clearFavs">Clear Favorites</button>
       </div>
+
+      <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
-    <button class="modal-close is-large" aria-label="close"></button>
-  </div>
 
+    <!-- No results modal -->
+    <div id="warning" class="noResultsModal modal modal-z">
+      <div class="modal-background"></div>
 
-  <!-- No results modal -->
-  <div id="warning" class="noResultsModal modal modal-z">
-    <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
 
-    <div class="modal-content">
-      <div class="box">
-
-        <h1 class="is-size-3 has-text-weight-bold has-text-centered">
-          There were no videos that matched your search.
-        </h1>
+          <h1 class="is-size-3 has-text-weight-bold has-text-centered">
+            There were no videos that matched your search.
+          </h1>
+        </div>
       </div>
-    </div>
 
-    <button class="modal-close is-large" aria-label="close"></button>
-  </div>
-  
-<script src="./assets/js/script.js"></script>
-</body>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    
+    <script src="./assets/js/script.js"></script>
+  </body>
 
 </html>
