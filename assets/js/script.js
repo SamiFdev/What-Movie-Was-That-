@@ -167,6 +167,7 @@ function searchMovie(movieTitle) {
             // Checks if a movie was found
             if (data.Response === 'True') {
                 searchResultsContainer.classList.remove('is-hidden')
+                clearButton.classList.remove('is-hidden');
                 searchList = data.Search
                 loadSearchResults()
               
@@ -194,6 +195,7 @@ function clearResults() {
     currentIndex = 0;
     previousBtn.classList.add('is-hidden')
     nextBtn.classList.add('is-hidden')
+    clearButton.classList.add('is-hidden')
 }
 
 // Searches movie, hides back button and detail page(in case it was searched from detail page)
